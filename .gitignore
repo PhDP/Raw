@@ -3,4 +3,5 @@
 Makefile
 CTestTestfile.cmake
 CMakeFiles
+CMakeCache.txt
 

@@ -1,0 +1,18 @@
+Start testing: Jul 24 19:42 EDT
+----------------------------------------------------------
+1/1 Testing: test_random_seq
+1/1 Test: test_random_seq
+Command: "/home/phdp/work/randomu/test_random_seq"
+Directory: /home/phdp/work/randomu
+"test_random_seq" start time: Jul 24 19:42 EDT
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_random_seq" end time: Jul 24 19:42 EDT
+"test_random_seq" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 24 19:42 EDT

@@ -4,7 +4,6 @@ project(randomu)
 enable_testing()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
-set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -lm")
 
 #add_subdirectory(src) 
 add_subdirectory(tests) 
