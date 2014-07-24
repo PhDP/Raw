@@ -1,20 +1,22 @@
-cmake_minimum_required(VERSION 2.8) 
-project(randomu) 
+cmake_minimum_required(VERSION 2.8)
+project(randomu)
 
 enable_testing()
 
+include_directories(include)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
 
-#add_subdirectory(src) 
-add_subdirectory(tests) 
+#add_subdirectory(src)
 
-add_test(
-  NAME test_random_seq
-  COMMAND test_random_seq
-)
+set(all_tests "")
 
-set_target_properties(test_random_seq
-  PROPERTIES
-  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-)
+macro(add_librandomu_test NAME)
+  list(APPEND all_tests ${NAME})
+  add_executable(${NAME} tests/${NAME}.c)
+  target_link_libraries(${NAME} m)
+  add_test(NAME ${NAME} COMMAND ${NAME})
+endmacro(add_librandomu_test)
 
+#  Transport tests.
+add_librandomu_test(test_random_seq)
