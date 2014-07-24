@@ -14,3 +14,8 @@ add_test(
   COMMAND test_random_seq
 )
 
+set_target_properties(test_random_seq
+  PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
