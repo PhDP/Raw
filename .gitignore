@@ -7,4 +7,6 @@ CMakeCache.txt
 
 # Build files
 build
+*.a
+*.o
 

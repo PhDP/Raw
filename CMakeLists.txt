@@ -6,9 +6,13 @@ enable_testing()
 
 include_directories(include)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall -std=c99")
 
-#add_subdirectory(src)
+add_library(randomu STATIC
+  src/rng.c
+)
+
+target_link_libraries(randomu m)
 
 set(all_tests "")
 

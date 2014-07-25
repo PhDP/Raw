@@ -6,7 +6,7 @@
 
 int rd_round(double n) {
   const int floor = (int)n;
-  const double rem = n - floor;
+  const double rem = n >= 0? n - floor : floor - n;
   if (rem < 0.5) {
     return floor;
   } else if (rem > 0.5) {
