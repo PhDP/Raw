@@ -6,7 +6,8 @@ randomu is a small C library that includes a high-quality random number
 generator, plus a few probabilistic data-structures, functions for statistics
 and handling probabilities.
 
-
+The bogosort random algorithm is a joke (don't use it!), but the bloom filter
+is a great probabilistic data structure.
 
 Installing
 ----------
