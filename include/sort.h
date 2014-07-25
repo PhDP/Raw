@@ -1,5 +1,5 @@
-#ifndef RD_BOGOSORT_H_
-#define RD_BOGOSORT_H_
+#ifndef RD_SORT_H_
+#define RD_SORT_H_
 
 #include "rng.h"
 
@@ -17,7 +17,7 @@ extern "C" {
  *are not in the right order.
  * \return          True if the array is sorted, false otherwise.
  */
-bool sorted(void *base, size_t nmemb, size_t size,
+bool rd_sorted(void *base, size_t nmemb, size_t size,
             int (*cmp)(const void *, const void *));
 
 /**
@@ -28,38 +28,34 @@ bool sorted(void *base, size_t nmemb, size_t size,
  * \param size     Size of the data (in bytes) inside the array.
  * \param rng      An initialized well1024 random number generator.
  */
-void knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r);
+void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r);
 
 /**
  * \brief Sort with bogosort!
- *
- * Use the well random number generator and the provided seed.
  *
  * \param base     The array to sort.
  * \param length   Number of elements in the array.
  * \param size     Size of an element.
  * \param cmp      Function to compare elements (same as the argument for qsort,
  *see compar.h).
- * \param seed     A number (greater than 0) to seed the random generator.
+ * \param r        A random number generator.
  * \return         The number of attempts needed to sort.
  */
-size_t bogosort(void *x, size_t nmemb, size_t size,
-                int (*cmp)(const void *, const void *), unsigned int seed);
+size_t rd_bogosort(void *x, size_t nmemb, size_t size,
+                   int (*cmp)(const void *, const void *), rd_rng *r);
 
 /**
- * \brief Sort with bogosort!
- *
- * Use the well random number generator and is seeded with time.
+ * \brief Bogosort algorithm with the same type signature as qsort, so it
+ * can replace it in
  *
  * \param base     The array to sort.
  * \param length   Number of elements in the array.
  * \param size     Size of an element.
  * \param cmp      Function to compare elements (same as the argument for qsort,
  *see compar.h).
- * \return         The number of attempts needed to sort.
  */
-size_t bogosort_noseed(void *x, size_t nmemb, size_t size,
-                       int (*cmp)(const void *, const void *));
+void rd_stdbogosort(void *x, size_t nmemb, size_t size,
+                    int (*cmp)(const void *, const void *));
 
 #ifdef __cplusplus
 }

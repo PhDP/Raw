@@ -11,6 +11,10 @@
 #ifndef RD_COMPAR_H_
 #define RD_COMPAR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * \brief Used to sort the strings in ascending order.
  *
@@ -179,5 +183,8 @@ int cmp_ulong_asc(const void *x, const void *y);
  */
 int cmp_ulong_des(const void *x, const void *y);
 
+#ifdef __cplusplus
+}
 #endif
 
+#endif
