@@ -26,6 +26,7 @@ unsigned int rd_rng_init(rd_rng *r, unsigned int seed) {
   }
   r->state_n = 0;
   r->state[0] = seed & 0xffffffffU;
+  r->has_next = false;
   for (int i = 1; i < 32; ++i) {
     r->state[i] = (69069 * r->state[i - 1]) & 0xffffffffU;
   }

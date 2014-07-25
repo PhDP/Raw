@@ -22,5 +22,7 @@ endmacro(add_librandomu_test)
 #  Transport tests.
 add_librandomu_test(test_rng_seq)
 add_librandomu_test(test_rng_double)
-
+add_librandomu_test(test_rng_init)
+add_librandomu_test(test_rng_normal)
+add_librandomu_test(test_sorted)
 

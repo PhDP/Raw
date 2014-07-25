@@ -1,9 +1,8 @@
 #ifndef RD_BOGOSORT_H_
 #define RD_BOGOSORT_H_
 
-#include "well.h"
+#include "rng.h"
 
-// For C++ compilers:
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,7 +28,7 @@ bool sorted(void *base, size_t nmemb, size_t size,
  * \param size     Size of the data (in bytes) inside the array.
  * \param rng      An initialized well1024 random number generator.
  */
-void knuth_shuffle(void *base, size_t nmemb, size_t size, well *rng);
+void knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r);
 
 /**
  * \brief Sort with bogosort!
