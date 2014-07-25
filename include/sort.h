@@ -34,7 +34,7 @@ void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r);
  * \brief Sort with bogosort!
  *
  * \param base     The array to sort.
- * \param length   Number of elements in the array.
+ * \param nmemb    Number of elements in the array.
  * \param size     Size of an element.
  * \param cmp      Function to compare elements (same as the argument for qsort,
  *see compar.h).
@@ -49,13 +49,36 @@ size_t rd_bogosort(void *x, size_t nmemb, size_t size,
  * can replace it in
  *
  * \param base     The array to sort.
- * \param length   Number of elements in the array.
+ * \param nmemb    Number of elements in the array.
  * \param size     Size of an element.
  * \param cmp      Function to compare elements (same as the argument for qsort,
  *see compar.h).
  */
 void rd_stdbogosort(void *x, size_t nmemb, size_t size,
                     int (*cmp)(const void *, const void *));
+
+/**
+ * \brief Insertion sort.
+ *
+ * \param base     The array to sort.
+ * \param nmemb    Number of elements in the array.
+ * \param size     Size of an element.
+ * \param cmp      Function to compare elements.
+ */
+void rd_isort(void *x, size_t nmemb, size_t size,
+              int (*cmp)(const void *, const void *));
+
+/**
+ * \brief Partial sort algorithm.
+ *
+ * \param base     The array to sort.
+ * \param nmemb    Number of elements in the array.
+ * \param tosort   Number of elements to sort.
+ * \param size     Size of an element.
+ * \param cmp      Function to compare elements.
+ */
+void rd_psort(void *x, size_t nmemb, size_t tosort, size_t size,
+              int (*cmp)(const void *, const void *));
 
 #ifdef __cplusplus
 }

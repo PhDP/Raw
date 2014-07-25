@@ -17,5 +17,8 @@ int main() {
 
   rd_stdbogosort(&x, 8, sizeof(int), cmp_int_des);
   assert(rd_sorted(&x, 8, sizeof(int), cmp_int_des));
+
+  rd_isort(&x, 8, sizeof(int), cmp_int_asc);
+  assert(rd_sorted(&x, 8, sizeof(int), cmp_int_asc));
   return EXIT_SUCCESS;
 }
