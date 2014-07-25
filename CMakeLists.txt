@@ -16,7 +16,11 @@ macro(add_librandomu_test NAME)
   add_executable(${NAME} tests/${NAME}.c)
   target_link_libraries(${NAME} m)
   add_test(NAME ${NAME} COMMAND ${NAME})
+  install(TARGETS ${NAME} RUNTIME DESTINATION tests)
 endmacro(add_librandomu_test)
 
 #  Transport tests.
-add_librandomu_test(test_random_seq)
+add_librandomu_test(test_rng_seq)
+add_librandomu_test(test_rng_double)
+
+

@@ -1,8 +1,10 @@
 # All the crap cmake generates:
-*.cmake
 Testing/
+CMakeFiles/
+*.cmake
 Makefile
-CTestTestfile.cmake
-CMakeFiles
 CMakeCache.txt
+
+# Tests:
+test_*
 
