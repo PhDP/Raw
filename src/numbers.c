@@ -10,11 +10,24 @@ int rd_round(double n) {
   if (rem < 0.5) {
     return floor;
   } else if (rem > 0.5) {
-    return floor > 0? floor + 1 : floor - 1;
+    return n > 0? floor + 1 : floor - 1;
   } else if (floor % 2 == 0) {
     return floor;
   }
-  return floor > 0? floor + 1 : floor - 1;
+  return n > 0? floor + 1 : floor - 1;
+}
+
+int rd_round_odd(double n) {
+  const int floor = (int)n;
+  const double rem = n >= 0? n - floor : floor - n;
+  if (rem < 0.5) {
+    return floor;
+  } else if (rem > 0.5) {
+    return n > 0? floor + 1 : floor - 1;
+  } else if (floor % 2 != 0) {
+    return floor;
+  }
+  return n > 0? floor + 1 : floor - 1;
 }
 
 double rd_sortsum(const double *base, int nmemb) {

@@ -8,10 +8,13 @@ int main() {
   assert(0 == rd_round(0));
   assert(-43 == rd_round(-42.7));
   assert(-8819 == rd_round(-8819.456));
-  printf("%d\n", rd_round(2.5001));
+  assert(3 == rd_round(2.5001));
+  assert(3 == rd_round_odd(2.5001));
   assert(1800 == rd_round(1799.6));
   assert(0 == rd_round(-0.5));
+  assert(-1 == rd_round_odd(-0.5));
   assert(0 == rd_round(0.5));
+  assert(1 == rd_round_odd(0.5));
   assert(-4 == rd_round(-3.5));
   assert(4 == rd_round(3.5));
   assert(-10 == rd_round(-10.5));

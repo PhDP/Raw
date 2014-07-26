@@ -5,8 +5,6 @@
  * Recurrences Modulo 2.
  */
 
-// clang -std=c99 test_random_seq.c -I../headers -o test -lm
-
 #ifndef RD_RNG_H_
 #define RD_RNG_H_
 

@@ -12,13 +12,22 @@ extern "C" {
 #endif
 
 /**
- * \brief Round the number according to the IEEE standard. It will round
- * numbers with a 0.5 fraction toward the nearest even number.
+ * \brief Round the number according to the default IEEE754 standard. It will
+ * round numbers with a 0.5 fraction toward the nearest even number.
  *
  * \param n         Number to round.
  * \return          Rounded number.
  */
 int rd_round(double n);
+
+/**
+ * \brief Like rd_round but toward odd numbers. This is mostly useful when you
+ * need to never round to 0.
+ *
+ * \param n         Number to round.
+ * \return          Rounded number.
+ */
+int rd_round_odd(double n);
 
 /**
  * \brief Sort an array before summing its values to avoid numerical
