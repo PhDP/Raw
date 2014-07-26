@@ -1,8 +1,8 @@
 <p align='center'>
-  <img src='http://phdp.github.io/images/randomu.png' alt='Randomu logo'/>
+  <img src='http://phdp.github.io/images/randamu.png' alt='Randamu logo'/>
 </p>
 
-randomu is a small C library that includes a high-quality random number
+randamu is a small C library that includes a high-quality random number
 generator, plus a few probabilistic data-structures, functions for statistics
 and handling probabilities.
 
