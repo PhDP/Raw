@@ -10,6 +10,8 @@ The bogosort random algorithm is a joke (don't use it!), but everything else is
 not. The bloom filter (a probabilistic data structure), is arguably one of the
 most original and useful data structure.
 
+Note: there is no C++ in this code, github is mislabelling some header files.
+
 Installing
 ----------
 On Linux or UNIX-like systems:
