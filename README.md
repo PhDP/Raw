@@ -2,6 +2,10 @@
   <img src='http://phdp.github.io/images/randamu.png' alt='Randamu logo'/>
 </p>
 
+<p align='right'>
+  <img src='https://travis-ci.org/PhDP/randamu.svg?branch=master' alt='Travis status'/>
+</p>
+
 randamu is a small MIT-licensed C library that includes a high-quality random
 number generator. The code is based on WELL1024, a new random generator with a
 better distribution than the mersenne twister, and is tested against a sequence
