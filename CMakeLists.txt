@@ -14,6 +14,9 @@ add_library(randamu STATIC
 
 target_link_libraries(randamu m)
 
+install(TARGETS randamu DESTINATION lib)
+install(FILES include/rng.h DESTINATION include/randamu)
+
 set(all_tests "")
 
 macro(add_librandamu_test NAME)
@@ -21,7 +24,6 @@ macro(add_librandamu_test NAME)
   add_executable(${NAME} tests/${NAME}.c)
   target_link_libraries(${NAME} m)
   add_test(NAME ${NAME} COMMAND ${NAME})
-  install(TARGETS ${NAME} RUNTIME DESTINATION tests)
 endmacro(add_librandamu_test)
 
 #  Transport tests.

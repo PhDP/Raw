@@ -21,6 +21,31 @@ On Linux or UNIX-like systems:
 Usage
 -----
 
+    // random.c
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <randamu/rng.h>
+
+    int main() {
+      // Creates a random number generator:
+      rd_rng r;
+      // Initialize it with the current time:
+      rd_rng_init_time(&r);
+
+      printf("Yeee, random numbers!\n");
+      for (int i = 0; i < 42; ++i) {
+        // Generates double-precision numbers in the [0, 1) range:
+        printf("%f\n", rd_rng_double(&r));
+      }
+      return EXIT_SUCCESS;
+    }
+
+Will compile with:
+
+    $ clang -Wall -std=c99 -O2 random.c -o random -lrandamu -lm
+
+...of course 'gcc' or another compiler can be used.
+
 License
 -------
 MIT <http://opensource.org/licenses/MIT>
