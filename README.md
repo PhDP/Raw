@@ -40,11 +40,11 @@ Usage
       return EXIT_SUCCESS;
     }
 
-Will compile with:
+...will compile with:
 
     $ clang -Wall -std=c99 -O2 random.c -o random -lrandamu -lm
 
-...of course 'gcc' or another compiler can be used.
+Of course 'gcc' or another compiler can be used.
 
 License
 -------

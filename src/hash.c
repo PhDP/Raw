@@ -9,7 +9,7 @@ uint32_t rd_murmur3_32(const char *key, uint32_t len, uint32_t seed) {
   static const uint32_t n = 0xe6546b64;
   uint32_t hash = seed;
   const int nblocks = len / 4;
-  const uint32_t *blocks = (const uint32_t *) key;
+  const uint32_t *blocks = (const uint32_t *)key;
   for (int i = 0; i < nblocks; ++i) {
     uint32_t k = blocks[i];
     k *= c1;
@@ -18,7 +18,7 @@ uint32_t rd_murmur3_32(const char *key, uint32_t len, uint32_t seed) {
     hash ^= k;
     hash = ((hash << r2) | (hash >> (32 - r2))) * m + n;
   }
-  const uint8_t *tail = (const uint8_t *) (key + nblocks * 4);
+  const uint8_t *tail = (const uint8_t *)(key + nblocks * 4);
   uint32_t k1 = 0;
   switch (len & 3) {
   case 3:

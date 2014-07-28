@@ -6,7 +6,7 @@
 #include "sort.h"
 
 bool rd_sorted(void *base, size_t nmemb, size_t size,
-            int (*cmp)(const void *, const void *)) {
+               int (*cmp)(const void *, const void *)) {
   if (size == 0) {
     return true;
   }
@@ -26,14 +26,15 @@ void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r) {
   int x;
   for (size_t i = nmemb - 1; i > 0; --i) {
     x = rd_rng_int(r, i + 1);
-    memcpy(&swap[0], (void*)((uint8_t*)base + x * size), size);
-    memcpy((void*)((uint8_t*)base + (x * size)), (void*)((uint8_t*)base + (i * size)), size);
-    memcpy((void*)((uint8_t*)base + (i * size)), &swap[0], size);
+    memcpy(&swap[0], (void *)((uint8_t *)base + x * size), size);
+    memcpy((void *)((uint8_t *)base + (x * size)),
+           (void *)((uint8_t *)base + (i * size)), size);
+    memcpy((void *)((uint8_t *)base + (i * size)), &swap[0], size);
   }
 }
 
 size_t rd_bogosort(void *base, size_t nmemb, size_t size,
-                int (*cmp)(const void *, const void *), rd_rng *r) {
+                   int (*cmp)(const void *, const void *), rd_rng *r) {
   size_t attempts = 0;
   while (!rd_sorted(base, nmemb, size, cmp)) {
     ++attempts;
@@ -56,10 +57,9 @@ void rd_isort(void *base, size_t nmemb, size_t size,
     memcpy(&swap[0], (void *)((uint8_t *)base + i * size), size);
     int j = i;
     for (; j > 0 && cmp(&swap, base + (j - 1) * size); --j) {
-      memcpy((void*)((uint8_t *)base + j * size),
-             (void*)((uint8_t *)base + (j - 1) * size), size);
+      memcpy((void *)((uint8_t *)base + j * size),
+             (void *)((uint8_t *)base + (j - 1) * size), size);
     }
-    memcpy((void*)((uint8_t *)base + j * size), &swap[0], size);
+    memcpy((void *)((uint8_t *)base + j * size), &swap[0], size);
   }
 }
-
