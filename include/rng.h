@@ -8,12 +8,12 @@
 #ifndef RD_RNG_H_
 #define RD_RNG_H_
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stdbool.h>
-#include <stdint.h>
 
 /**
  * \brief The state of a rd_rng random number generator.

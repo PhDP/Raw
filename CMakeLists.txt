@@ -6,6 +6,9 @@ enable_testing()
 
 include_directories(include)
 
+################################################################
+# BUILD LIBRARY ################################################
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall -std=c99")
 
 add_library(randamu STATIC

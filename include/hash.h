@@ -1,3 +1,8 @@
+/*! \file
+ *
+ * \brief Hash functions.
+ */
+
 #ifndef RD_HASH_H_
 #define RD_HASH_H_
 

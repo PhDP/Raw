@@ -1,3 +1,9 @@
+/*! \file
+ *
+ * \brief Sort algorithms, including the infamous bogosort and, well
+ * more useful algorithms.
+ */
+
 #ifndef RD_SORT_H_
 #define RD_SORT_H_
 

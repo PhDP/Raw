@@ -6,12 +6,12 @@
 #ifndef RD_BLOOM_H_
 #define RD_BLOOM_H_
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stdbool.h>
-#include <stdint.h>
 
 /**
  * \brief Probabilistic set data structure.
