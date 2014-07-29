@@ -30,6 +30,14 @@ On Linux or UNIX-like systems:
 
 It is not currently tested on Windows but it will.
 
+To launch tests simply add:
+
+    $ make test
+
+after 'make'.
+
+To generate the documentation, type *doxygen* at the root of the directory.
+
 Usage
 -----
     #include <stdlib.h>
