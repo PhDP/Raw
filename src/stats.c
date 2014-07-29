@@ -24,22 +24,34 @@ void rd_mean_var(const double *x, size_t nmemb, double *mean, double *var) {
     m2 += delta * (x[i] - m);
   }
 
-  (*mean) = m;
-  (*var) = m2 / (nmemb - 1);
+  if (mean != NULL) {
+    (*mean) = m;
+  }
+  if (var != NULL) {
+    (*var) = m2 / (nmemb - 1);
+  }
 }
 
-double rd_var(const double *x, size_t nmemb) {
-  double m = 0.0;
-  double m2 = 0.0;
+double rd_mean(const double *x, size_t nmemb) {
+  double mean = 0.0;
   double delta;
 
   for (int i = 0; i < nmemb; ++i) {
     delta = x[i] - m;
-    m += delta / (i + 1);
-    m2 += delta * (x[i] - m);
+    mean += delta / (i + 1);
   }
 
-  return m2 / (nmemb - 1);
+  return mean;
+};
+
+double rd_var(const double *x, size_t nmemb) {
+  double var;
+  rd_mean_var(x, nmemb, NULL, &var);
+  return var;
+}
+
+double rd_std(const double *x, size_t nmemb) {
+  return sqrt(rd_var(x, nmemb));
 }
 
 double rd_kutorsis(const double *x, size_t nmemb) {
