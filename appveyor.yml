@@ -10,8 +10,9 @@ install:
   - cinst make
   - cinst mingw
   - SET PATH=C:\MinGW\msys\1.0\bin;%PATH%
+  - DEL C:\MinGW\msys\1.0\bin\sh.exe
 
-before_build: 
+before_build:
   - cmake -G "MinGW Makefiles"
 
 build_script: make
