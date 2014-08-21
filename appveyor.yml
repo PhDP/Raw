@@ -10,11 +10,10 @@ install:
   - cinst make
   - cinst mingw
 
-before_build:
+before_build: 
   - cmake -G "MinGW Makefiles"
 
-build:
-  - make
+build_script: make
 
 test_script:
   - make test
