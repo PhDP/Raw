@@ -11,6 +11,7 @@ install:
   - cinst mingw
   - SET PATH=C:\MinGW\msys\1.0\bin;%PATH%
   - DEL C:\MinGW\msys\1.0\bin\sh.exe
+  - DEL "C:\Program Files (x86)\Git\bin\sh.exe"
 
 before_build:
   - cmake -G "MinGW Makefiles"
