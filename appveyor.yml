@@ -1,0 +1,21 @@
+branches:
+  only:
+    - master
+
+os: Windows Server 2012
+platform: x64
+
+install:
+  - cinst cmake
+  - cinst make
+  - cinst mingw
+
+before_build:
+  - cmake -G "MinGW Makefiles"
+
+build:
+  - make
+
+test_script:
+  - make test
+
