@@ -36,8 +36,6 @@ To launch tests simply add:
 
 after 'make'.
 
-To generate the documentation, type *doxygen* at the root of the directory.
-
 Usage
 -----
     #include <stdlib.h>
@@ -70,10 +68,9 @@ Usage
 
 Of course 'gcc' or another compiler can be used. On an Intel Core i7-4702HQ
 with clang 3.5, this code takes 21.8164 seconds, a ~9% improvement over gsl
-with the mersenne twister, and you don't need to adopt the GPL license for your
-code.
+with the mersenne twister, and you don't need to adopt the GPL license.
 
 License
 -------
-MIT <http://opensource.org/licenses/MIT>
+[MIT](http://opensource.org/licenses/MIT)
 
