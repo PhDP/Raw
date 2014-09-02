@@ -22,15 +22,16 @@ bool rd_sorted(void *base, size_t nmemb, size_t size,
 }
 
 void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r) {
-  uint8_t swap[size];
+  uint8_t *swap = (uint8_t *)malloc(size);
   int x;
   for (size_t i = nmemb - 1; i > 0; --i) {
     x = rd_rng_int(r, i + 1);
-    memcpy(&swap[0], (void *)((uint8_t *)base + x * size), size);
+    memcpy((void*)swap, (void *)((uint8_t *)base + x * size), size);
     memcpy((void *)((uint8_t *)base + (x * size)),
            (void *)((uint8_t *)base + (i * size)), size);
-    memcpy((void *)((uint8_t *)base + (i * size)), &swap[0], size);
+    memcpy((void *)((uint8_t *)base + (i * size)), swap, size);
   }
+  free(swap);
 }
 
 size_t rd_bogosort(void *base, size_t nmemb, size_t size,
@@ -52,14 +53,15 @@ void rd_stdbogosort(void *base, size_t nmemb, size_t size,
 
 void rd_isort(void *base, size_t nmemb, size_t size,
               int (*cmp)(const void *, const void *)) {
-  uint8_t swap[size]; // Would need more vars with a swap macro...
+  uint8_t *swap = (uint8_t *)malloc(size);
   for (int i = 1; i < nmemb; ++i) {
-    memcpy(&swap[0], (void *)((uint8_t *)base + i * size), size);
+    memcpy(swap, (void *)((uint8_t *)base + i * size), size);
     int j = i;
-    for (; j > 0 && cmp(&swap, base + (j - 1) * size); --j) {
+    for (; j > 0 && cmp(swap, base + (j - 1) * size); --j) {
       memcpy((void *)((uint8_t *)base + j * size),
              (void *)((uint8_t *)base + (j - 1) * size), size);
     }
-    memcpy((void *)((uint8_t *)base + j * size), &swap[0], size);
+    memcpy((void *)((uint8_t *)base + j * size), swap, size);
   }
+  free(swap);
 }
