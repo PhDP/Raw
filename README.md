@@ -4,7 +4,8 @@
 
 <p align='right'>
   <img src='https://travis-ci.org/PhDP/randamu.svg?branch=master' alt='Travis status'/>
-  <img src='https://ci.appveyor.com/api/projects/status/9nqqxwsbdufa2wfj/branch/master' alt='Appveyor status'/>
+  [![Build status](https://travis-ci.org/PhDP/randamu.svg?branch=master)](https://travis-ci.org/PhDP/randamu)
+  [![Build status](https://ci.appveyor.com/api/projects/status/9nqqxwsbdufa2wfj)](https://ci.appveyor.com/project/PhilippeDesjardinsProulx/randamu-855)
 </p>
 
 randamu is a small MIT-licensed C library that includes a high-quality random
