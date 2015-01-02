@@ -10,8 +10,7 @@ bool rd_sorted(void *base, size_t nmemb, size_t size,
   if (size == 0) {
     return true;
   }
-  register uint8_t *a = (base), *b = (base) + size,
-                   *end = (base) + (size * nmemb);
+  register uint8_t *a = (uint8_t *)base, *b = (uint8_t *)base + size, *end = (uint8_t *)base + (size * nmemb);
   while (b != end) {
     if (cmp((void *)a, (void *)b) > 0) {
       return false;
@@ -54,10 +53,10 @@ void rd_stdbogosort(void *base, size_t nmemb, size_t size,
 void rd_isort(void *base, size_t nmemb, size_t size,
               int (*cmp)(const void *, const void *)) {
   uint8_t *swap = (uint8_t *)malloc(size);
-  for (int i = 1; i < nmemb; ++i) {
+  for (size_t i = 1; i < nmemb; ++i) {
     memcpy(swap, (void *)((uint8_t *)base + i * size), size);
     int j = i;
-    for (; j > 0 && cmp(swap, base + (j - 1) * size); --j) {
+    for (; j > 0 && cmp(swap, (uint8_t *)base + (j - 1) * size); --j) {
       memcpy((void *)((uint8_t *)base + j * size),
              (void *)((uint8_t *)base + (j - 1) * size), size);
     }

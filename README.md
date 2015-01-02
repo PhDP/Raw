@@ -28,13 +28,20 @@ On Linux or UNIX-like systems:
     $ make
     $ sudo make install
 
-It is not currently tested on Windows but it will.
-
 To launch tests simply add:
 
     $ make test
 
 after 'make'.
+
+You can generate Visual Studio project files with cmake, which can 
+be installed with [chocolatey](https://chocolatey.org/), and using the
+command
+
+    $ cmake .
+
+at the root of the randamu directory. To run the tests, simply build
+the RUN_TESTS project in Visual Studio.
 
 Usage
 -----

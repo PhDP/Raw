@@ -52,7 +52,7 @@ double rd_rng_double(rd_rng *r) {
   state[state_n] = z1 ^ z2;
   state[(state_n + 31) & 0x0000001fUL] =
       RD_MAT3NEG((-11), (state[(state_n + 31) & 0x0000001fUL])) ^
-      RD_MAT3NEG((-7), z1) ^ RD_MAT3NEG(-13, z2);
+      RD_MAT3NEG((-7), z1) ^ RD_MAT3NEG((-13), z2);
   r->state_n = (state_n + 31) & 0x0000001fUL;
   return ((double)state[r->state_n] * 2.32830643653869628906e-10);
 }

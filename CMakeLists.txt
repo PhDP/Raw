@@ -9,7 +9,9 @@ include_directories(include)
 ################################################################
 # BUILD LIBRARY ################################################
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall -std=c99")
+if(NOT MSVC)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall -std=c99")
+endif(NOT MSVC)
 
 add_library(randamu STATIC
   src/compar.c
@@ -20,7 +22,9 @@ add_library(randamu STATIC
 )
 
 # Link to the math library
-target_link_libraries(randamu m)
+if(NOT MSVC)
+  target_link_libraries(randamu m)
+endif(NOT MSVC)
 
 ################################################################
 # INSTALLATION #################################################
@@ -42,7 +46,9 @@ set(all_tests "")
 macro(add_librandamu_test NAME)
   list(APPEND all_tests ${NAME})
   add_executable(${NAME} tests/${NAME}.c)
-  target_link_libraries(${NAME} m)
+  if(NOT MSVC)
+    target_link_libraries(${NAME} m)
+  endif(NOT MSVC)
   add_test(NAME ${NAME} COMMAND ${NAME})
 endmacro(add_librandamu_test)
 
@@ -52,4 +58,3 @@ add_librandamu_test(test_rng_init)
 add_librandamu_test(test_rng_normal)
 add_librandamu_test(test_sort)
 add_librandamu_test(test_numbers)
-
