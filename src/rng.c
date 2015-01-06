@@ -101,17 +101,6 @@ void * randalloc(rd_rng *r, size_t size) {
     mem += sizeof(uint32_t);
   }
   
-  /*
-  assert(sizeof(uint8_t) == 1);
-  const void * stop = mem + size;
-  uint8_t val;
-  while (mem != stop) {
-    val = rd_rng_uint(r);
-    *((uint8_t*)mem) = val;
-    mem += sizeof(uint8_t);
-  }
-  */
-
   assert(start == mem - size);
   return mem - size;
 }
