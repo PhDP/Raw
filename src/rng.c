@@ -55,7 +55,7 @@ unsigned int rd_rng_init_time(rd_rng *r) {
     r->state_n = (state_n + 31) & 0x0000001fUL; \
   } while (0)
 
-inline unsigned int rd_rng_uint(rd_rng *r) {
+unsigned int rd_rng_uint(rd_rng *r) {
   unsigned int *const state = r->state;
   WELL1024_CORE;
   return state[r->state_n];
