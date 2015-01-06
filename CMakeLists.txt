@@ -54,6 +54,7 @@ endmacro(add_librandamu_test)
 
 add_librandamu_test(test_rng_seq)
 add_librandamu_test(test_rng_double)
+add_librandamu_test(test_rng_uint)
 add_librandamu_test(test_rng_init)
 add_librandamu_test(test_rng_normal)
 add_librandamu_test(test_sort)

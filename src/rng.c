@@ -41,6 +41,22 @@ unsigned int rd_rng_init_time(rd_rng *r) {
 #define RD_MAT3NEG(t, v) ((v) ^ ((v) << (-t)))
 #define RD_IDEN(v) (v)
 
+inline unsigned int rd_rng_uint(rd_rng *r) {
+  unsigned int *const state = r->state;
+  const unsigned int state_n = r->state_n;
+  const unsigned int z1 = RD_IDEN(state[state_n]) ^
+                          RD_MAT3POS(8, state[(state_n + 3) & 0x0000001fUL]);
+  const unsigned int z2 =
+      RD_MAT3NEG((-19), state[(state_n + 24) & 0x0000001fUL]) ^
+      RD_MAT3NEG((-14), state[(state_n + 10) & 0x0000001fUL]);
+  state[state_n] = z1 ^ z2;
+  state[(state_n + 31) & 0x0000001fUL] =
+      RD_MAT3NEG((-11), (state[(state_n + 31) & 0x0000001fUL])) ^
+      RD_MAT3NEG((-7), z1) ^ RD_MAT3NEG((-13), z2);
+  r->state_n = (state_n + 31) & 0x0000001fUL;
+  return state[r->state_n];
+}
+
 double rd_rng_double(rd_rng *r) {
   unsigned int *const state = r->state;
   const unsigned int state_n = r->state_n;
@@ -54,7 +70,7 @@ double rd_rng_double(rd_rng *r) {
       RD_MAT3NEG((-11), (state[(state_n + 31) & 0x0000001fUL])) ^
       RD_MAT3NEG((-7), z1) ^ RD_MAT3NEG((-13), z2);
   r->state_n = (state_n + 31) & 0x0000001fUL;
-  return ((double)state[r->state_n] * 2.32830643653869628906e-10);
+  return state[r->state_n] * 2.32830643653869628906e-10;
 }
 
 double rd_rng_normal(rd_rng *r) {

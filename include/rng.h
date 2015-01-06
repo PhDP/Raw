@@ -80,6 +80,8 @@ unsigned int rd_rng_init_time(rd_rng *r);
  */
 double rd_rng_double(rd_rng *r);
 
+unsigned int rd_rng_uint(rd_rng *r);
+
 /**
  * \brief Return an integer in the [0, b) uniform range (including 0, excluding
  * b).
@@ -101,7 +103,7 @@ double rd_rng_double(rd_rng *r);
  * \param b         Upper limit: the highest possible value is b - 1
  * \return          A random interger in the [0, b) uniform range.
  */
-#define rd_rng_uint(r, b) ((unsigned int)(rd_rng_double(r) * (b)))
+#define rd_rng_uintb(r, b) ((unsigned int)(rd_rng_double(r) * (b)))
 
 /**
  * \brief Return an integer in the [0, MAX) range, where MAX is the
