@@ -11,6 +11,8 @@
 #ifndef RD_COMPAR_H_
 #define RD_COMPAR_H_
 
+#include "common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

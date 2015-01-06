@@ -11,6 +11,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

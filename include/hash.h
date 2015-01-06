@@ -7,6 +7,7 @@
 #define RD_HASH_H_
 
 #include <stdint.h>
+#include "common.h"
 
 #ifdef __cplusplus
 extern "C" {

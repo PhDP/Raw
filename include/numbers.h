@@ -7,6 +7,8 @@
 #ifndef RD_NUMBERS_H_
 #define RD_NUMBERS_H_
 
+#include "common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -6,6 +6,8 @@
 #ifndef RD_STATS_H_
 #define RD_STATS_H_
 
+#include "common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

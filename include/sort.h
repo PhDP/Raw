@@ -8,6 +8,7 @@
 #define RD_SORT_H_
 
 #include "rng.h"
+#include "common.h"
 
 #ifdef __cplusplus
 extern "C" {
