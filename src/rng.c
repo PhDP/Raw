@@ -9,10 +9,10 @@
 #include "rng.h"
 
 // From Julienne Walker.
-unsigned int rd_time_seed() {
+uint32_t rd_time_seed() {
   time_t now = time(0);
   unsigned char *p = (unsigned char *)&now;
-  unsigned int seed = 0;
+  uint32_t seed = 0;
   // Knuth's method (TAOCP vol 2).
   for (size_t i = 0; i < sizeof(now); ++i) {
     seed = seed * (UCHAR_MAX + 2U) + p[i];
@@ -20,20 +20,21 @@ unsigned int rd_time_seed() {
   return seed;
 }
 
-unsigned int rd_rng_init(rd_rng *r, unsigned int seed) {
+uint32_t rd_rng_init(rd_rng *r, uint32_t seed) {
   if (seed == 0) {
     seed = 42;
   }
   r->state_n = 0;
   r->state[0] = seed & 0xffffffffU;
   r->has_next = false;
+  r->seed = seed;
   for (int i = 1; i < 32; ++i) {
     r->state[i] = (69069 * r->state[i - 1]) & 0xffffffffU;
   }
   return seed;
 }
 
-unsigned int rd_rng_init_time(rd_rng *r) {
+uint32_t rd_rng_init_time(rd_rng *r) {
   return rd_rng_init(r, rd_time_seed());
 }
 
@@ -42,10 +43,10 @@ unsigned int rd_rng_init_time(rd_rng *r) {
 #define RD_IDEN(v) (v)
 #define WELL1024_CORE do \
   { \
-    const unsigned int state_n = r->state_n; \
-    const unsigned int z1 = RD_IDEN(state[state_n]) ^ \
+    const uint32_t state_n = r->state_n; \
+    const uint32_t z1 = RD_IDEN(state[state_n]) ^ \
                       RD_MAT3POS(8, state[(state_n + 3) & 0x0000001fUL]); \
-    const unsigned int z2 = \
+    const uint32_t z2 = \
       RD_MAT3NEG((-19), state[(state_n + 24) & 0x0000001fUL]) ^ \
       RD_MAT3NEG((-14), state[(state_n + 10) & 0x0000001fUL]); \
     state[state_n] = z1 ^ z2; \
@@ -55,14 +56,14 @@ unsigned int rd_rng_init_time(rd_rng *r) {
     r->state_n = (state_n + 31) & 0x0000001fUL; \
   } while (0)
 
-unsigned int rd_rng_uint(rd_rng *r) {
-  unsigned int *const state = r->state;
+uint32_t rd_rng_uint(rd_rng *r) {
+  uint32_t *const state = r->state;
   WELL1024_CORE;
   return state[r->state_n];
 }
 
 double rd_rng_double(rd_rng *r) {
-  unsigned int *const state = r->state;
+  uint32_t *const state = r->state;
   WELL1024_CORE;
   return state[r->state_n] * 2.32830643653869628906e-10;
 }
@@ -78,6 +79,41 @@ double rd_rng_normal(rd_rng *r) {
     s = n0 * n0 + n1 * n1;
   } while (s >= 1 || s == 0);
   return n0 * sqrt(-2.0 * log(s) / s);
+}
+
+void * randalloc(rd_rng *r, size_t size) {
+  if (size < 1) {
+    return NULL;
+  }
+  void *mem = malloc(size);
+  const void * start = mem;
+  if (mem == NULL) {
+    return NULL;
+  }
+  const void * stop = (void *)((uint8_t*)mem + size);
+  size_t rem = size % sizeof(uint32_t);
+  while (rem-- > 0) {
+    *((uint8_t*)mem) = (uint8_t)rd_rng_uint(r);
+    mem += sizeof(uint8_t);
+  }
+  while (mem != stop) {
+    *((uint32_t*)mem) = rd_rng_uint(r);
+    mem += sizeof(uint32_t);
+  }
+  
+  /*
+  assert(sizeof(uint8_t) == 1);
+  const void * stop = mem + size;
+  uint8_t val;
+  while (mem != stop) {
+    val = rd_rng_uint(r);
+    *((uint8_t*)mem) = val;
+    mem += sizeof(uint8_t);
+  }
+  */
+
+  assert(start == mem - size);
+  return mem - size;
 }
 
 int rd_rng_poisson(rd_rng *r, double lambda) {

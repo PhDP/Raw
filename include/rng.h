@@ -22,15 +22,15 @@ typedef struct {
   /**
    * \brief Internal state of the generator.
    */
-  unsigned int state[32];
+  uint32_t state[32];
   /**
    * \brief Internal state of the generator.
    */
-  unsigned int state_n;
+  uint32_t state_n;
   /**
    * \brief The initial seed used to initiate the generator.
    */
-  unsigned int seed;
+  uint32_t seed;
   /**
    * \brief Has a next double.
    */
@@ -43,23 +43,23 @@ typedef struct {
 
 /**
  * \brief Julienne Walker's portable function (from www.eternallyconfuzzled.com)
- * to get an unsigned int from time().
+ * to get an uint32_t from time().
  *
  * Warning: on most systems it will return the same value if called twice within
  * one second.
  *
- * \return          An unsigned integer derived from time()
+ * \return          An uint32_teger derived from time()
  */
-unsigned int rd_time_seed();
+uint32_t rd_time_seed();
 
 /**
- * \brief Seed a rd_rng generator with an unsigned integer.
+ * \brief Seed a rd_rng generator with an uint32_teger.
  *
  * \param rng       The generator.
  * \param seed      The seed used to initialize the generator.
  * \return          Returns the seed used.
  */
-unsigned int rd_rng_init(rd_rng *r, unsigned int seed);
+uint32_t rd_rng_init(rd_rng *r, uint32_t seed);
 
 /**
  * \brief Initialize with time using time_seed().
@@ -67,20 +67,23 @@ unsigned int rd_rng_init(rd_rng *r, unsigned int seed);
  * \param rng       The generator.
  * \return          The seed used.
  */
-unsigned int rd_rng_init_time(rd_rng *r);
+uint32_t rd_rng_init_time(rd_rng *r);
 
 /**
  * \brief Return a double in the [0, 1) uniform range.
- *
- * This is the 'native' generator: all other random numbers (normal,
- * exponential, integers, ...) use this function.
  *
  * \param rng       The generator
  * \return          A random value in the [0, 1) uniform range.
  */
 double rd_rng_double(rd_rng *r);
 
-unsigned int rd_rng_uint(rd_rng *r);
+/**
+ * \brief Returns a number in the [0, 4294967296] range.
+ *
+ * \param rng       The generator
+ * \return          A random value in the [0, 4294967296] uniform range.
+ */
+uint32_t rd_rng_uint(rd_rng *r);
 
 /**
  * \brief Return an integer in the [0, b) uniform range (including 0, excluding
@@ -93,35 +96,17 @@ unsigned int rd_rng_uint(rd_rng *r);
  * \param b         Upper limit: the highest possible value is b - 1
  * \return          A random interger in the [0, b) uniform range.
  */
-#define rd_rng_int(r, b) ((int)(rd_rng_double(r) * (b)))
+#define rd_rng_intb(r, b) ((int)(rd_rng_double(r) * (b)))
 
 /**
- * \brief Return an unsigned integer in the [0, b) uniform range (including 0,
+ * \brief Return an uint32_teger in the [0, b) uniform range (including 0,
  * excluding b).
  *
  * \param rng       The generator
  * \param b         Upper limit: the highest possible value is b - 1
  * \return          A random interger in the [0, b) uniform range.
  */
-#define rd_rng_uintb(r, b) ((unsigned int)(rd_rng_double(r) * (b)))
-
-/**
- * \brief Return an integer in the [0, MAX) range, where MAX is the
- * highest possible value for an integer.
- *
- * \param rng       The generator
- * \return          A random interger in the [0, MAX) uniform range.
- */
-#define rd_rng_int_max(r) ((int)(rd_rng_double(r) * INT32_MAX))
-
-/**
- * \brief Return an unsigned integer in the [0, MAX) range, where MAX is the
- * highest possible value for an integer.
- *
- * \param rng       The generator
- * \return          A random interger in the [0, MAX) uniform range.
- */
-#define rd_rng_uint_max(r) ((unsigned int)(rd_rng_double(r) * UINT32_MAX))
+#define rd_rng_uintb(r, b) ((uint32_t)(rd_rng_double(r) * (b)))
 
 /**
  * \brief Return a double from the normal distribution.
@@ -147,6 +132,11 @@ double rd_rng_exp(rd_rng *r);
  * \return          A number in the poisson distribution.
  */
 int rd_rng_poisson(rd_rng *r, double lambda);
+
+/** 
+ * \brief Allocates a random block of memory.
+ */
+void * randalloc(rd_rng *r, size_t size);
 
 #ifdef __cplusplus
 }
