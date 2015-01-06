@@ -85,8 +85,8 @@ void * randalloc(rd_rng *r, size_t size) {
   if (size < 1) {
     return NULL;
   }
-  void *mem = malloc(size);
-  const void * start = mem;
+  void * mem = malloc(size);
+  void * base = mem;
   if (mem == NULL) {
     return NULL;
   }
@@ -94,15 +94,13 @@ void * randalloc(rd_rng *r, size_t size) {
   size_t rem = size % sizeof(uint32_t);
   while (rem-- > 0) {
     *((uint8_t*)mem) = (uint8_t)rd_rng_uint(r);
-    mem += sizeof(uint8_t);
+    mem = (void *)((uint8_t *)mem + sizeof(uint8_t));
   }
   while (mem != stop) {
     *((uint32_t*)mem) = rd_rng_uint(r);
-    mem += sizeof(uint32_t);
+    mem = (void *)((uint8_t *)mem + sizeof(uint32_t));
   }
-  
-  assert(start == mem - size);
-  return mem - size;
+  return base;
 }
 
 int rd_rng_poisson(rd_rng *r, double lambda) {
