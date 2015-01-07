@@ -59,7 +59,20 @@ int main() {
     free(yb);
     free(yi);
   }
-  
+
+  for (int i = 0; i < 8; ++i) {
+    const size_t size_y = rd_rng_intb(&r, 8) + 1;
+    const size_t bytes = size_y * sizeof(int);
+    int *y = (int *)rd_randalloc(&r, bytes);
+    
+    rd_median_of_three(y, size_y, sizeof(int), cmp_int_asc);
+    
+    // Test:
+    const size_t med_idx = size_y / 2;
+    assert(y[0] <= y[med_idx]);
+    assert(y[med_idx] <= y[size_y - 1]);
+    free(y);
+  }
   return EXIT_SUCCESS;
 }
 

@@ -87,6 +87,22 @@ void rd_isort(void *x, size_t nmemb, size_t size,
 void rd_psort(void *x, size_t nmemb, size_t tosort, size_t size,
               int (*cmp)(const void *, const void *));
 
+/**
+ * \brief Pick the first, last, and median elements of an array, sort
+ * them, and return the median.
+ *
+ * For [1, 2, 3, 4, 0], the function will pick 1, 3, 0, sort them into
+ * [0, 2, 1, 4, 3], and return 1.
+ *
+ * \param base     The base of the array.
+ * \param nmemb    Number of elements in the array.
+ * \param size     Size of an element.
+ * \param cmp      Function to compare elements.
+ * \return         A pointer to the median value in the array.
+ */
+void * rd_median_of_three(void *base, size_t nmemb, size_t size,
+                        int (*cmp)(const void *, const void *));
+
 #ifdef __cplusplus
 }
 #endif

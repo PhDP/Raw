@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "common.h"
 #include "rng.h"
 #include "sort.h"
 
@@ -67,5 +68,21 @@ void rd_isort(void *base, size_t nmemb, size_t size,
     i += size;
   }
   free(swap);
+}
+
+void * rd_median_of_three(void *base, size_t nmemb, size_t size,
+                          int (*cmp)(const void *, const void *)) {
+  void * med = (void*)((uint8_t *)base + (nmemb / 2) * size);
+  const void * last = (void*)((uint8_t *)base + (nmemb - 1) * size);
+  if (cmp(last, base) < 0) {
+    rd_swap(last, base, size);
+  }
+  if (cmp(med, base) < 0) {
+    rd_swap(med, base, size);
+  }
+  if (cmp(last, med) < 0) {
+    rd_swap(last, med, size);
+  }
+  return med;
 }
 
