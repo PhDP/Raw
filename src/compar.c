@@ -12,19 +12,39 @@ int cmp_string_des(const void *x, const void *y) {
 }
 
 int cmp_char_asc(const void *x, const void *y) {
-  return *(char *)x - *(char *)y;
+  if (*(char *)x < *(char *)y) {
+    return -1;
+  } else if (*(char *)x > *(char *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_char_des(const void *x, const void *y) {
-  return *(char *)y - *(char *)x;
+  if (*(char *)x > *(char *)y) {
+    return -1;
+  } else if (*(char *)x < *(char *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_uchar_asc(const void *x, const void *y) {
-  return *(unsigned char *)x - *(unsigned char *)y;
+  if (*(unsigned char *)x < *(unsigned char *)y) {
+    return -1;
+  } else if (*(unsigned char *)x > *(unsigned char *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_uchar_des(const void *x, const void *y) {
-  return *(unsigned char *)y - *(unsigned char *)x;
+  if (*(unsigned char *)x > *(unsigned char *)y) {
+    return -1;
+  } else if (*(unsigned char *)x < *(unsigned char *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_double_asc(const void *x, const void *y) {
