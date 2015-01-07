@@ -21,10 +21,9 @@ int main() {
 
   for (int i = 0; i < 24; ++i) {
     const size_t size_y = rd_rng_intb(&r, 10) + 1;
-    //int *y = (int *)rd_randalloc(&r, size_y * sizeof(int));
-    int *y = (int *)malloc(size_y * sizeof(int));
+    int *y = (int *)rd_randalloc(&r, size_y * sizeof(int));
     for (int j = 0; j < size_y; ++j) {
-      y[j] = rd_rng_intb(&r, 2048) - 1024;
+      y[j] /= 10;
     }
     printf("Test %d (%d elements):\n", i, (int)size_y);
     printf("   unsorted(y): ");
