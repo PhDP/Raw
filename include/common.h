@@ -21,6 +21,16 @@ extern "C" {
  * \param b       Pointer to the second value to swap.
  * \param size    Size of the data of swap in bytes.
  */
+#ifdef _MSC_VER
+#define rd_swap(a, b, size) do \
+  { \
+    uint8_t *tmp = (uint8_t *)malloc(size); \
+    memcpy((void *)&tmp, (void *)(b), size); \
+    memcpy((void *)(b), (void *)(a), size); \
+    memcpy((void *)(a), (void *)&tmp, size); \
+    free(tmp); \
+  } while(0)
+#else
 #define rd_swap(a, b, size) do \
   { \
     uint8_t tmp[size]; \
@@ -28,6 +38,7 @@ extern "C" {
     memcpy((void *)(b), (void *)(a), size); \
     memcpy((void *)(a), (void *)&tmp, size); \
   } while(0)
+#endif
 
 #ifdef __cplusplus
 }
