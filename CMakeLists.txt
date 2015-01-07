@@ -60,4 +60,5 @@ add_librandamu_test(test_rng_normal)
 add_librandamu_test(test_randalloc)
 add_librandamu_test(test_sort)
 add_librandamu_test(test_numbers)
+add_librandamu_test(test_common)
 
