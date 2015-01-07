@@ -54,14 +54,17 @@ void rd_stdbogosort(void *base, size_t nmemb, size_t size,
 void rd_isort(void *base, size_t nmemb, size_t size,
               int (*cmp)(const void *, const void *)) {
   uint8_t *swap = (uint8_t *)malloc(size);
-  for (size_t i = 1; i < nmemb; ++i) {
-    memcpy(swap, (void *)((uint8_t *)base + i * size), size);
-    int j = i;
-    for (; j > 0 && cmp(swap, (uint8_t *)base + (j - 1) * size) < 0; --j) {
-      memcpy((void *)((uint8_t *)base + j * size),
-             (void *)((uint8_t *)base + (j - 1) * size), size);
+  const uint8_t *end = (uint8_t *)base + nmemb * size;
+  uint8_t *i = (uint8_t *)base + size;
+  while (i != end) {
+    memcpy(swap, (void *)i, size);
+    uint8_t *j = i;
+    while ((void *)j > base && cmp(swap, j - size) < 0) {
+      memcpy((void *)j, (void *)(j - size), size);
+      j -= size;
     }
-    memcpy((void *)((uint8_t *)base + j * size), swap, size);
+    memcpy((void *)j, swap, size);
+    i += size;
   }
   free(swap);
 }
