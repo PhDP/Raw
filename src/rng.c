@@ -85,20 +85,20 @@ void * randalloc(rd_rng *r, size_t size) {
   if (size < 1) {
     return NULL;
   }
-  void * mem = malloc(size);
-  void * base = mem;
-  if (mem == NULL) {
+  void * base = malloc(size);
+  uint8_t * p = (uint8_t *)base;
+  if (p == NULL) {
     return NULL;
   }
-  const void * stop = (void *)((uint8_t*)mem + size);
+  const uint8_t * stop = p + size;
   size_t rem = size % sizeof(uint32_t);
   while (rem-- > 0) {
-    *((uint8_t*)mem) = (uint8_t)rd_rng_uint(r);
-    mem = (void *)((uint8_t *)mem + sizeof(uint8_t));
+    *p = (uint8_t)rd_rng_uint(r);
+    p += sizeof(uint8_t);
   }
-  while (mem != stop) {
-    *((uint32_t*)mem) = rd_rng_uint(r);
-    mem = (void *)((uint8_t *)mem + sizeof(uint32_t));
+  while (p != stop) {
+    *((uint32_t*)p) = rd_rng_uint(r);
+    p += sizeof(uint32_t);
   }
   return base;
 }
