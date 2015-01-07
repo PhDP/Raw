@@ -50,7 +50,7 @@ typedef struct {
  * Warning: on most systems it will return the same value if called twice within
  * one second.
  *
- * \return          An uint32_teger derived from time()
+ * \return          An uint32_teger derived from time().
  */
 uint32_t rd_time_seed();
 
@@ -74,7 +74,7 @@ uint32_t rd_rng_init_time(rd_rng *r);
 /**
  * \brief Return a double in the [0, 1) uniform range.
  *
- * \param rng       The generator
+ * \param rng       The generator.
  * \return          A random value in the [0, 1) uniform range.
  */
 double rd_rng_double(rd_rng *r);
@@ -82,7 +82,7 @@ double rd_rng_double(rd_rng *r);
 /**
  * \brief Returns a number in the [0, 4294967296] range.
  *
- * \param rng       The generator
+ * \param rng       The generator.
  * \return          A random value in the [0, 4294967296] uniform range.
  */
 uint32_t rd_rng_uint(rd_rng *r);
@@ -94,8 +94,8 @@ uint32_t rd_rng_uint(rd_rng *r);
  * Bechmarks show ~5% performane improvement over a normal function, which
  * is enough to justify the define for such procedure.
  *
- * \param rng       The generator
- * \param b         Upper limit: the highest possible value is b - 1
+ * \param rng       The generator.
+ * \param b         Upper limit: the highest possible value is b - 1.
  * \return          A random interger in the [0, b) uniform range.
  */
 #define rd_rng_intb(r, b) ((int)(rd_rng_double(r) * (b)))
@@ -104,8 +104,8 @@ uint32_t rd_rng_uint(rd_rng *r);
  * \brief Return an uint32_teger in the [0, b) uniform range (including 0,
  * excluding b).
  *
- * \param rng       The generator
- * \param b         Upper limit: the highest possible value is b - 1
+ * \param rng       The generator.
+ * \param b         Upper limit: the highest possible value is b - 1.
  * \return          A random interger in the [0, b) uniform range.
  */
 #define rd_rng_uintb(r, b) ((uint32_t)(rd_rng_double(r) * (b)))
@@ -113,7 +113,7 @@ uint32_t rd_rng_uint(rd_rng *r);
 /**
  * \brief Return a double from the normal distribution.
  *
- * \param rng       The generator
+ * \param rng       The generator.
  * \return          An exponential random variable.
  */
 double rd_rng_normal(rd_rng *r);
@@ -121,7 +121,7 @@ double rd_rng_normal(rd_rng *r);
 /**
  * \brief Returns a double from the exponential distribution (between 0 and 1).
  *
- * \param rng       The generator
+ * \param rng       The generator.
  * \return          An exponential random variable.
  */
 double rd_rng_exp(rd_rng *r);
@@ -129,7 +129,7 @@ double rd_rng_exp(rd_rng *r);
 /**
  * \brief Returns an integer from a poisson distribution given lambda.
  *
- * \param rng       The generator
+ * \param rng       The generator.
  * \param lambda    The lambda parameter of the poisson distribution.
  * \return          A number in the poisson distribution.
  */
@@ -137,8 +137,12 @@ int rd_rng_poisson(rd_rng *r, double lambda);
 
 /** 
  * \brief Allocates a random block of memory.
+ *
+ * \param r         The generator.
+ * \param size      Number of bytes to allocate.
+ * \return          The address of the block of memory.
  */
-void * randalloc(rd_rng *r, size_t size);
+void * rd_randalloc(rd_rng *r, size_t size);
 
 #ifdef __cplusplus
 }

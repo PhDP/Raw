@@ -7,18 +7,39 @@ int main() {
   rd_rng r;
   rd_rng_init_time(&r);
 
-  int x[] = {-3, -2, -1, 0, 5, 10, 16, 10};
-  assert(rd_sorted(&x, 7, sizeof(int), cmp_int_asc));
+  int x[] = {-308392, -20929, 4958933, -222234, 5020224, -1025, 1600390193, -1025};
+  assert(rd_sorted(&x, 3, sizeof(int), cmp_int_asc));
   assert(!rd_sorted(&x, 8, sizeof(int), cmp_int_asc));
-  assert(!rd_sorted(&x, 7, sizeof(int), cmp_int_des));
+  assert(!rd_sorted(&x, 6, sizeof(int), cmp_int_des));
 
-  rd_bogosort(&x, 8, sizeof(int), cmp_int_asc, &r);
+  //rd_bogosort(&x, 8, sizeof(int), cmp_int_asc, &r);
+  rd_isort(&x, 8, sizeof(int), cmp_int_asc);
   assert(rd_sorted(&x, 8, sizeof(int), cmp_int_asc));
 
   rd_stdbogosort(&x, 8, sizeof(int), cmp_int_des);
   assert(rd_sorted(&x, 8, sizeof(int), cmp_int_des));
 
-  rd_isort(&x, 8, sizeof(int), cmp_int_asc);
-  assert(rd_sorted(&x, 8, sizeof(int), cmp_int_asc));
+  for (int i = 0; i < 24; ++i) {
+    const size_t size_y = rd_rng_intb(&r, 10) + 1;
+    //int *y = (int *)rd_randalloc(&r, size_y * sizeof(int));
+    int *y = (int *)malloc(size_y * sizeof(int));
+    for (int j = 0; j < size_y; ++j) {
+      y[j] = rd_rng_intb(&r, 2048) - 1024;
+    }
+    printf("Test %d (%d elements):\n", i, (int)size_y);
+    printf("   unsorted(y): ");
+    for (int j = 0; j < size_y; ++j) {
+      printf("%d  ", y[j]);
+    }
+    printf("\n   sorted(y): ");
+    rd_isort(y, size_y, sizeof(int), cmp_int_des);
+    for (int j = 0; j < size_y; ++j) {
+      printf("%d  ", y[j]);
+    }
+    printf("\n\n");
+    assert(rd_sorted(y, size_y, sizeof(int), cmp_int_des));
+    free(y);
+  }
   return EXIT_SUCCESS;
 }
+

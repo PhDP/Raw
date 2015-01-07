@@ -38,10 +38,10 @@ int main() {
   free(arr32);
   free(arr64);
 
-  arr8 = (uint8_t *)randalloc(&r, max * sizeof(uint8_t));
-  arr16 = (uint16_t *)randalloc(&r, max * sizeof(uint16_t));
-  arr32 = (uint32_t *)randalloc(&r, max * sizeof(uint32_t));
-  arr64 = (uint64_t *)randalloc(&r, max * sizeof(uint64_t));
+  arr8 = (uint8_t *)rd_randalloc(&r, max * sizeof(uint8_t));
+  arr16 = (uint16_t *)rd_randalloc(&r, max * sizeof(uint16_t));
+  arr32 = (uint32_t *)rd_randalloc(&r, max * sizeof(uint32_t));
+  arr64 = (uint64_t *)rd_randalloc(&r, max * sizeof(uint64_t));
   
   for (size_t i = 0; i < max; ++i) {
     sum8 += (double)arr8[i];
@@ -62,12 +62,12 @@ int main() {
   const double e64 = (sum64 / max) / UINT64_MAX;
   assert(e64 > 0.48 && e64 < 0.52);
 
-  // Make sure that arbitrarily small randalloc works fine too.
+  // Make sure that arbitrarily small rd_randalloc works fine too.
   uint32_t allsamples = 0;
   double sumS = 0.0;
   for (size_t i = 0; i < 100; ++i) {
     const uint32_t sample = rd_rng_uintb(&r, 100) + 1;
-    arr8 = (uint8_t *)randalloc(&r, max * sizeof(uint8_t));
+    arr8 = (uint8_t *)rd_randalloc(&r, max * sizeof(uint8_t));
     for (size_t j = 0; j < sample; ++j) {
       sumS += (double)arr8[j];
     }
@@ -77,7 +77,7 @@ int main() {
   const double es = (sumS / allsamples) / UINT8_MAX;
   assert(es > 0.45 && es < 0.55);
 
-  assert(randalloc(&r, 0) == NULL);
+  assert(rd_randalloc(&r, 0) == NULL);
 
   printf("%f\n", e8);
   printf("%f\n", e16);

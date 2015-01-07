@@ -5,12 +5,13 @@
 #include "rng.h"
 #include "sort.h"
 
-bool rd_sorted(void *base, size_t nmemb, size_t size,
+bool rd_sorted(const void *base, size_t nmemb, size_t size,
                int (*cmp)(const void *, const void *)) {
-  if (size == 0) {
+  if (nmemb < 2) {
     return true;
   }
-  register uint8_t *a = (uint8_t *)base, *b = (uint8_t *)base + size, *end = (uint8_t *)base + (size * nmemb);
+  register uint8_t *a = (uint8_t *)base, *b = (uint8_t *)base + size,
+                   *end = (uint8_t *)base + (size * nmemb);
   while (b != end) {
     if (cmp((void *)a, (void *)b) > 0) {
       return false;
@@ -25,7 +26,7 @@ void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r) {
   int x;
   for (size_t i = nmemb - 1; i > 0; --i) {
     x = rd_rng_intb(r, i + 1);
-    memcpy((void*)swap, (void *)((uint8_t *)base + x * size), size);
+    memcpy((void *)swap, (void *)((uint8_t *)base + x * size), size);
     memcpy((void *)((uint8_t *)base + (x * size)),
            (void *)((uint8_t *)base + (i * size)), size);
     memcpy((void *)((uint8_t *)base + (i * size)), swap, size);
@@ -56,7 +57,7 @@ void rd_isort(void *base, size_t nmemb, size_t size,
   for (size_t i = 1; i < nmemb; ++i) {
     memcpy(swap, (void *)((uint8_t *)base + i * size), size);
     int j = i;
-    for (; j > 0 && cmp(swap, (uint8_t *)base + (j - 1) * size); --j) {
+    for (; j > 0 && cmp(swap, (uint8_t *)base + (j - 1) * size) < 0; --j) {
       memcpy((void *)((uint8_t *)base + j * size),
              (void *)((uint8_t *)base + (j - 1) * size), size);
     }
@@ -64,3 +65,4 @@ void rd_isort(void *base, size_t nmemb, size_t size,
   }
   free(swap);
 }
+

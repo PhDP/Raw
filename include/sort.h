@@ -24,7 +24,7 @@ extern "C" {
  *are not in the right order.
  * \return          True if the array is sorted, false otherwise.
  */
-bool rd_sorted(void *base, size_t nmemb, size_t size,
+bool rd_sorted(const void *base, size_t nmemb, size_t size,
             int (*cmp)(const void *, const void *));
 
 /**

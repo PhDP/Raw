@@ -81,7 +81,7 @@ double rd_rng_normal(rd_rng *r) {
   return n0 * sqrt(-2.0 * log(s) / s);
 }
 
-void * randalloc(rd_rng *r, size_t size) {
+void * rd_randalloc(rd_rng *r, size_t size) {
   if (size < 1) {
     return NULL;
   }
