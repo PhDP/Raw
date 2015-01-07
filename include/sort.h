@@ -53,7 +53,7 @@ size_t rd_bogosort(void *x, size_t nmemb, size_t size,
 
 /**
  * \brief Bogosort algorithm with the same type signature as qsort, so it
- * can replace it in
+ * can replace it.
  *
  * \param base     The array to sort.
  * \param nmemb    Number of elements in the array.

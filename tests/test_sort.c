@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <string.h>
 #include "../src/rng.c"
 #include "../src/sort.c"
 #include "../src/compar.c"
@@ -36,6 +37,29 @@ int main() {
     assert(rd_sorted(y, size_y, sizeof(int), cmp_int_des));
     free(y);
   }
+
+  for (int i = 0; i < 8; ++i) {
+    const size_t size_y = rd_rng_intb(&r, 8) + 1;
+    const size_t bytes = size_y * sizeof(int);
+    int *yq = (int *)rd_randalloc(&r, bytes);
+    int *yi = (int *)malloc(bytes);
+    int *yb = (int *)malloc(bytes);
+
+    memcpy(yi, yq, bytes);
+    memcpy(yb, yq, bytes);
+
+    qsort(yq, size_y, sizeof(int), cmp_int_asc);
+    rd_isort(yi, size_y, sizeof(int), cmp_int_asc);
+    rd_bogosort(yb, size_y, sizeof(int), cmp_int_asc, &r);
+
+    assert(memcmp(yi, yq, bytes) == 0);
+    assert(memcmp(yq, yb, bytes) == 0);
+
+    free(yq);
+    free(yb);
+    free(yi);
+  }
+  
   return EXIT_SUCCESS;
 }
 
