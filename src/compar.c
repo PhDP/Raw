@@ -64,33 +64,73 @@ int cmp_float_des(const void *x, const void *y) {
 }
 
 int cmp_int_asc(const void *x, const void *y) {
-  return *(int *)x - *(int *)y;
+  if (*(int *)x < *(int *)y) {
+    return -1;
+  } else if (*(int *)x > *(int *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_int_des(const void *x, const void *y) {
-  return *(int *)y - *(int *)x;
+  if (*(int *)x > *(int *)y) {
+    return -1;
+  } else if (*(int *)x < *(int *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_uint_asc(const void *x, const void *y) {
-  return *(unsigned int *)x - *(unsigned int *)y;
+  if (*(unsigned int *)x < *(unsigned int *)y) {
+    return -1;
+  } else if (*(unsigned int *)x > *(unsigned int *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_uint_des(const void *x, const void *y) {
-  return *(unsigned int *)y - *(unsigned int *)x;
+  if (*(unsigned int *)x > *(unsigned int *)y) {
+    return -1;
+  } else if (*(unsigned int *)x < *(unsigned int *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_long_asc(const void *x, const void *y) {
-  return *(long *)x - *(long *)y;
+  if (*(long *)x < *(long *)y) {
+    return -1;
+  } else if (*(long *)x > *(long *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_long_des(const void *x, const void *y) {
-  return *(long *)y - *(long *)x;
+  if (*(long *)x > *(long *)y) {
+    return -1;
+  } else if (*(long *)x < *(long *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_ulong_asc(const void *x, const void *y) {
-  return *(unsigned long *)x - *(unsigned long *)y;
+  if (*(unsigned long *)x < *(unsigned long *)y) {
+    return -1;
+  } else if (*(unsigned long *)x > *(unsigned long *)y) {
+    return 1;
+  }
+  return 0;
 }
 
 int cmp_ulong_des(const void *x, const void *y) {
-  return *(unsigned long *)y - *(unsigned long *)x;
+  if (*(unsigned long *)x > *(unsigned long *)y) {
+    return -1;
+  } else if (*(unsigned long *)x < *(unsigned long *)y) {
+    return 1;
+  }
+  return 0;
 }
