@@ -36,6 +36,7 @@ install(FILES include/hash.h DESTINATION include/randamu)
 install(FILES include/numbers.h DESTINATION include/randamu)
 install(FILES include/rng.h DESTINATION include/randamu)
 install(FILES include/sort.h DESTINATION include/randamu)
+install(FILES include/common.h DESTINATION include/randamu)
 
 ################################################################
 # TESTS ########################################################
