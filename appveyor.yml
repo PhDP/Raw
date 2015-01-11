@@ -1,0 +1,6 @@
+version: 1.0.{build}
+before_build:
+- cmake DCMAKE_BUILD_TYPE=DEBUG .
+build:
+  project: randamu.sln
+  verbosity: minimal
