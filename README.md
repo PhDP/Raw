@@ -23,7 +23,7 @@ On Linux or UNIX-like systems:
 
     $ git clone https://github.com/PhDP/randamu.git
     $ cd randamu
-    $ cmake .
+    $ cmake -DCMAKE_BUILD_TYPE=RELEASE .
     $ make
     $ sudo make install
 
@@ -37,7 +37,7 @@ You can generate Visual Studio project files with cmake, which can
 be installed with [chocolatey](https://chocolatey.org/), and using the
 command
 
-    $ cmake .
+    $ cmake -DCMAKE_BUILD_TYPE=RELEASE .
 
 at the root of the randamu directory. To run the tests, simply build
 the RUN_TESTS project in Visual Studio.
