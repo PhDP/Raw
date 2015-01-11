@@ -14,7 +14,8 @@ uint32_t rd_time_seed() {
   unsigned char *p = (unsigned char *)&now;
   uint32_t seed = 0;
   // Knuth's method (TAOCP vol 2).
-  for (size_t i = 0; i < sizeof(now); ++i) {
+  size_t i = 0;
+  for (; i < sizeof(now); ++i) {
     seed = seed * (UCHAR_MAX + 2U) + p[i];
   }
   return seed;
@@ -28,7 +29,9 @@ uint32_t rd_rng_init(rd_rng *r, uint32_t seed) {
   r->state[0] = seed & 0xffffffffU;
   r->has_next = false;
   r->seed = seed;
-  for (int i = 1; i < 32; ++i) {
+  
+  int i = 1;
+  for (; i < 32; ++i) {
     r->state[i] = (69069 * r->state[i - 1]) & 0xffffffffU;
   }
   return seed;

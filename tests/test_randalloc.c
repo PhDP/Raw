@@ -21,7 +21,8 @@ int main() {
   uint32_t * arr32 = (uint32_t *)calloc(max, sizeof(uint32_t));
   uint64_t * arr64 = (uint64_t *)calloc(max, sizeof(uint64_t));
 
-  for (size_t i = 0; i < max; ++i) {
+  size_t i = 0;
+  for (; i < max; ++i) {
     sum8 += (double)arr8[i];
     sum16 += (double)arr16[i];
     sum32 += (double)arr32[i];
@@ -43,7 +44,7 @@ int main() {
   arr32 = (uint32_t *)rd_randalloc(&r, max * sizeof(uint32_t));
   arr64 = (uint64_t *)rd_randalloc(&r, max * sizeof(uint64_t));
   
-  for (size_t i = 0; i < max; ++i) {
+  for (i = 0; i < max; ++i) {
     sum8 += (double)arr8[i];
     sum16 += (double)arr16[i];
     sum32 += (double)arr32[i];
@@ -65,10 +66,11 @@ int main() {
   // Make sure that arbitrarily small rd_randalloc works fine too.
   uint32_t allsamples = 0;
   double sumS = 0.0;
-  for (size_t i = 0; i < 100; ++i) {
+  for (i = 0; i < 100; ++i) {
     const uint32_t sample = rd_rng_uintb(&r, 100) + 1;
     arr8 = (uint8_t *)rd_randalloc(&r, max * sizeof(uint8_t));
-    for (size_t j = 0; j < sample; ++j) {
+    size_t j = 0;
+    for (; j < sample; ++j) {
       sumS += (double)arr8[j];
     }
     free(arr8);

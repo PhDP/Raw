@@ -6,7 +6,9 @@ int main() {
   rd_rng_init_time(&r);
   const int max = 4096;
   double sum = 0;
-  for (int i = 0; i < max; ++i) {
+
+  int i = 0;
+  for (; i < max; ++i) {
     const unsigned int x = rd_rng_uint(&r);
     sum += (double)x;
   }

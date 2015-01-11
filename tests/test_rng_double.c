@@ -6,7 +6,9 @@ int main() {
   rd_rng_init_time(&r);
   const int max = 1024;
   double sum = 0.0;
-  for (int i = 0; i < max; ++i) {
+
+  int i = 0;
+  for (; i < max; ++i) {
     const double x = rd_rng_double(&r);
     sum += x;
     assert(x >= 0.0 && x < 1.0);

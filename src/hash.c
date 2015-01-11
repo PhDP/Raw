@@ -10,7 +10,9 @@ uint32_t rd_murmur3_32(const char *key, uint32_t len, uint32_t seed) {
   uint32_t hash = seed;
   const int nblocks = len / 4;
   const uint32_t *blocks = (const uint32_t *)key;
-  for (int i = 0; i < nblocks; ++i) {
+
+  int i = 0;
+  for (; i < nblocks; ++i) {
     uint32_t k = blocks[i];
     k *= c1;
     k = (k << r1) | (k >> (32 - r1));

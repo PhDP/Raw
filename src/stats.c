@@ -18,7 +18,8 @@ void rd_mean_var(const double *x, size_t nmemb, double *mean, double *var) {
   double m2 = 0.0;
   double delta;
 
-  for (int i = 0; i < nmemb; ++i) {
+  int i = 0;
+  for (; i < nmemb; ++i) {
     delta = x[i] - m;
     m += delta / (i + 1);
     m2 += delta * (x[i] - m);
@@ -36,7 +37,8 @@ double rd_mean(const double *x, size_t nmemb) {
   double mean = 0.0;
   double delta;
 
-  for (int i = 0; i < nmemb; ++i) {
+  int i = 0;
+  for (; i < nmemb; ++i) {
     delta = x[i] - m;
     mean += delta / (i + 1);
   }
@@ -58,7 +60,8 @@ double rd_kutorsis(const double *x, size_t nmemb) {
   double m1 = 0.0, m2 = 0.0, m3 = 0.0, m4 = 0.0;
   double i1, term1, delta, delta_n, delta_n2;
 
-  for (int i = 0; i < nmemb; ++i) {
+  int i = 0;
+  for (; i < nmemb; ++i) {
     i1 = (double)(i + 1);
     delta = x[i] - m1;
     delta_n = delta / i1;

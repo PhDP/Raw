@@ -35,7 +35,9 @@ double rd_sortsum(const double *base, int nmemb) {
   memcpy((void *)sorted, (void *)base, nmemb * sizeof(double));
   qsort((void *)sorted, nmemb, sizeof(double), cmp_double_asc);
   double sum = 0.0;
-  for (int i = 0; i < nmemb; ++i) {
+  
+  int i = 0;
+  for (; i < nmemb; ++i) {
     sum += sorted[i];
   }
   free(sorted);

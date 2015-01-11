@@ -20,17 +20,18 @@ int main() {
   rd_stdbogosort(&x, 8, sizeof(int), cmp_int_des);
   assert(rd_sorted(&x, 8, sizeof(int), cmp_int_des));
 
-  for (int i = 0; i < 24; ++i) {
+  int i = 0, j;
+  for (; i < 24; ++i) {
     const size_t size_y = rd_rng_intb(&r, 10) + 1;
     int *y = (int *)rd_randalloc(&r, size_y * sizeof(int));
     printf("Test %d (%d elements):\n", i, (int)size_y);
     printf("   unsorted(y): ");
-    for (int j = 0; j < size_y; ++j) {
+    for (j = 0; j < size_y; ++j) {
       printf("%d  ", y[j]);
     }
     printf("\n   sorted(y): ");
     rd_isort(y, size_y, sizeof(int), cmp_int_des);
-    for (int j = 0; j < size_y; ++j) {
+    for (j = 0; j < size_y; ++j) {
       printf("%d  ", y[j]);
     }
     printf("\n\n");
@@ -38,7 +39,7 @@ int main() {
     free(y);
   }
 
-  for (int i = 0; i < 8; ++i) {
+  for (i = 0; i < 8; ++i) {
     const size_t size_y = rd_rng_intb(&r, 8) + 1;
     const size_t bytes = size_y * sizeof(int);
     int *yq = (int *)rd_randalloc(&r, bytes);
@@ -60,7 +61,7 @@ int main() {
     free(yi);
   }
 
-  for (int i = 0; i < 8; ++i) {
+  for (i = 0; i < 8; ++i) {
     const size_t size_y = rd_rng_intb(&r, 8) + 1;
     const size_t bytes = size_y * sizeof(int);
     int *y = (int *)rd_randalloc(&r, bytes);

@@ -25,7 +25,8 @@ bool rd_sorted(const void *base, size_t nmemb, size_t size,
 void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r) {
   uint8_t *swap = (uint8_t *)malloc(size);
   int x;
-  for (size_t i = nmemb - 1; i > 0; --i) {
+  size_t i = nmemb - 1;
+  for (; i > 0; --i) {
     x = rd_rng_intb(r, i + 1);
     memcpy((void *)swap, (void *)((uint8_t *)base + x * size), size);
     memcpy((void *)((uint8_t *)base + (x * size)),

@@ -28,7 +28,8 @@ int main() {
   rd_rng r42, r47;
   rd_rng_init(&r42, 42);
   rd_rng_init(&r47, 47);
-  for (int i = 0; i < 8; ++i) {
+  int i = 0;
+  for (; i < 8; ++i) {
     assert(original_42[i] == rd_rng_double(&r42));
     assert(original_47[i] == rd_rng_double(&r47));
   }

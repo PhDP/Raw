@@ -9,10 +9,6 @@ include_directories(include)
 ################################################################
 # BUILD LIBRARY ################################################
 
-if(NOT MSVC)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall -std=c99")
-endif(NOT MSVC)
-
 add_library(randamu STATIC
   src/compar.c
   src/hash.c
@@ -21,7 +17,6 @@ add_library(randamu STATIC
   src/sort.c
 )
 
-# Link to the math library
 if(NOT MSVC)
   target_link_libraries(randamu m)
 endif(NOT MSVC)
