@@ -1,5 +1,6 @@
 # All the crap cmake generates:
-*.cmake
+cmake_install.cmake
+CTestTestfile.cmake
 *.txt
 Testing/
 CMakeFiles/

@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 project(randamu)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 enable_testing()
-
 include_directories(include)
+
+find_package(MATH)
 
 ################################################################
 # BUILD LIBRARY ################################################
@@ -17,21 +19,26 @@ add_library(randamu STATIC
   src/sort.c
 )
 
-if(NOT MSVC)
-  target_link_libraries(randamu m)
-endif(NOT MSVC)
+target_link_libraries(randamu ${MATH_LIBS})
 
 ################################################################
 # INSTALLATION #################################################
 
 install(TARGETS randamu DESTINATION lib)
-install(FILES include/bloom.h DESTINATION include/randamu)
-install(FILES include/compar.h DESTINATION include/randamu)
-install(FILES include/hash.h DESTINATION include/randamu)
-install(FILES include/numbers.h DESTINATION include/randamu)
-install(FILES include/rng.h DESTINATION include/randamu)
-install(FILES include/sort.h DESTINATION include/randamu)
-install(FILES include/common.h DESTINATION include/randamu)
+
+# Macro for adding headers:
+macro(add_header NAME)
+  install(FILES include/${NAME} DESTINATION include/randamu)
+endmacro(add_header)
+
+install(TARGETS randamu DESTINATION lib)
+add_header(bloom.h)
+add_header(compar.h)
+add_header(hash.h)
+add_header(numbers.h)
+add_header(rng.h)
+add_header(sort.h)
+add_header(common.h)
 
 ################################################################
 # TESTS ########################################################
@@ -42,9 +49,7 @@ set(all_tests "")
 macro(add_librandamu_test NAME)
   list(APPEND all_tests ${NAME})
   add_executable(${NAME} tests/${NAME}.c)
-  if(NOT MSVC)
-    target_link_libraries(${NAME} m)
-  endif(NOT MSVC)
+  target_link_libraries(${NAME} ${MATH_LIBS})
   add_test(NAME ${NAME} COMMAND ${NAME})
 endmacro(add_librandamu_test)
 
