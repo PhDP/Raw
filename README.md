@@ -19,8 +19,6 @@ Other functions and algorithms related to probability theory and statistics are
 also included. The bogosort algorithm is a joke (don't use it!), but everything
 else is not.
 
-Note: there is no C++ in this code, github is mislabelling some header files.
-
 Installing
 ----------
 On Linux or UNIX-like systems:
