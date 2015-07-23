@@ -36,7 +36,7 @@ To launch tests simply add:
 
 after 'make'.
 
-You can generate Visual Studio project files with cmake, which can 
+You can generate Visual Studio project files with cmake, which can
 be installed with [chocolatey](https://chocolatey.org/), and using the
 command
 
@@ -47,29 +47,32 @@ the RUN_TESTS project in Visual Studio.
 
 Usage
 -----
-    #include <stdlib.h>
-    #include <stdio.h>
-    #include <time.h>
-    #include <randamu/rng.h>
 
-    int main() {
-      const clock_t start = clock();
-      rd_rng r; // A random number generator.
-      rd_rng_init_time(&r); // Initialize with the current time.
-      const int max = 2000000000;
-      int success = 0;
-      for (int i = 0; i < max; ++i) {
-        // Creates points in the unit square:
-        const double x = rd_rng_double(&r);
-        const double y = rd_rng_double(&r);
-        // Tests if they are within the unit circle:
-        success += (x * x + y * y) < 1.0;
-      }
-      // Print estimate of pi:
-      printf("Pi ~= %f!\n", 4.0 * success / max);
-      printf("Time: %.4f seconds.\n", ((double)(clock() - start) / CLOCKS_PER_SEC));
-      return EXIT_SUCCESS;
-    }
+``` C
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <randamu/rng.h>
+
+int main() {
+  const clock_t start = clock();
+  rd_rng r; // A random number generator.
+  rd_rng_init_time(&r); // Initialize with the current time.
+  const int max = 2000000000;
+  int success = 0;
+  for (int i = 0; i < max; ++i) {
+    // Creates points in the unit square:
+    const double x = rd_rng_double(&r);
+    const double y = rd_rng_double(&r);
+    // Tests if they are within the unit circle:
+    success += (x * x + y * y) < 1.0;
+  }
+  // Print estimate of pi:
+  printf("Pi ~= %f!\n", 4.0 * success / max);
+  printf("Time: %.4f seconds.\n", ((double)(clock() - start) / CLOCKS_PER_SEC));
+  return EXIT_SUCCESS;
+}
+```
 
 ...will compile with:
 
