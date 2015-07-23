@@ -3,6 +3,11 @@ project(randamu)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
+if (NOT CMAKE_BUILD_TYPE)
+  message(STATUS "No build type provided, default to RELEASE.")
+  set(CMAKE_BUILD_TYPE "RELEASE")
+endif ()
+
 enable_testing()
 include_directories(include)
 
@@ -26,19 +31,9 @@ target_link_libraries(randamu ${MATH_LIBS})
 
 install(TARGETS randamu DESTINATION lib)
 
-# Macro for adding headers:
-macro(add_header NAME)
-  install(FILES include/${NAME} DESTINATION include/randamu)
-endmacro(add_header)
+file(GLOB all_headers "include/*.h")
 
-install(TARGETS randamu DESTINATION lib)
-add_header(bloom.h)
-add_header(compar.h)
-add_header(hash.h)
-add_header(numbers.h)
-add_header(rng.h)
-add_header(sort.h)
-add_header(common.h)
+install(FILES ${all_headers} DESTINATION include/randamu)
 
 ################################################################
 # TESTS ########################################################
