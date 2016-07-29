@@ -1,5 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
-#include "../src/rng.c"
+#include <string.h>
+#include "randamu/rng.h"
 
 int main() {
   rd_rng r;

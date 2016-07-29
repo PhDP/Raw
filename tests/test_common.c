@@ -1,12 +1,13 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "common.h"
-#include "../src/rng.c"
+#include "randamu/rng.h"
 
 int main() {
   rd_rng r;
   rd_rng_init_time(&r);
-  
+
   int i = 0, j;
   for (; i < 32; ++i) {
     const size_t size = rd_rng_intb(&r, 32) + 2;

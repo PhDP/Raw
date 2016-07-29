@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(randamu)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 if (NOT CMAKE_BUILD_TYPE)
@@ -30,10 +30,7 @@ target_link_libraries(randamu ${MATH_LIBS})
 # INSTALLATION #################################################
 
 install(TARGETS randamu DESTINATION lib)
-
-file(GLOB all_headers "include/*.h")
-
-install(FILES ${all_headers} DESTINATION include/randamu)
+install(DIRECTORY include/randamu DESTINATION include)
 
 ################################################################
 # TESTS ########################################################
@@ -44,7 +41,7 @@ set(all_tests "")
 macro(add_librandamu_test NAME)
   list(APPEND all_tests ${NAME})
   add_executable(${NAME} tests/${NAME}.c)
-  target_link_libraries(${NAME} ${MATH_LIBS})
+  target_link_libraries(${NAME} ${MATH_LIBS} randamu)
   add_test(NAME ${NAME} COMMAND ${NAME})
 endmacro(add_librandamu_test)
 

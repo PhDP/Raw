@@ -6,7 +6,7 @@
 #include <string.h>
 #include <math.h>
 #include <limits.h>
-#include "rng.h"
+#include "randamu/rng.h"
 
 // From Julienne Walker.
 uint32_t rd_time_seed() {
@@ -29,7 +29,7 @@ uint32_t rd_rng_init(rd_rng *r, uint32_t seed) {
   r->state[0] = seed & 0xffffffffU;
   r->has_next = false;
   r->seed = seed;
-  
+
   int i = 1;
   for (; i < 32; ++i) {
     r->state[i] = (69069 * r->state[i - 1]) & 0xffffffffU;

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "stats.h"
+#include "randamu/stats.h"
 
 double rd_sort_stat(const double *base, size_t nmemb,
                     double (*st)(const double *, size_t)) {

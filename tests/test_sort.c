@@ -1,8 +1,10 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "../src/rng.c"
-#include "../src/sort.c"
-#include "../src/compar.c"
+#include "randamu/rng.h"
+#include "randamu/sort.h"
+#include "randamu/compar.h"
 
 int main() {
   rd_rng r;
@@ -65,9 +67,9 @@ int main() {
     const size_t size_y = rd_rng_intb(&r, 8) + 1;
     const size_t bytes = size_y * sizeof(int);
     int *y = (int *)rd_randalloc(&r, bytes);
-    
+
     rd_median_of_three(y, size_y, sizeof(int), cmp_int_asc);
-    
+
     // Test:
     const size_t med_idx = size_y / 2;
     assert(y[0] <= y[med_idx]);

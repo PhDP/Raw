@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-#include "../src/numbers.c"
-#include "../src/compar.c"
+#include <string.h>
+#include "randamu/numbers.h"
+#include "randamu/compar.h"
 
 int main() {
   assert(0 == rd_round(0));

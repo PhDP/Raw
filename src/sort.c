@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "common.h"
-#include "rng.h"
-#include "sort.h"
+#include "randamu/common.h"
+#include "randamu/rng.h"
+#include "randamu/sort.h"
 
 bool rd_sorted(const void *base, size_t nmemb, size_t size,
                int (*cmp)(const void *, const void *)) {

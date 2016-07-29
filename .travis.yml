@@ -7,7 +7,7 @@ compiler:
 
 # Command to run tests
 script:
-  - mkdir build && cd build
+  - mkdir build && cd $_
   - cmake ..
   - make
   - make test

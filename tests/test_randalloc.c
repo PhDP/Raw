@@ -1,5 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
-#include "../src/rng.c"
+#include <string.h>
+#include "randamu/rng.h"
 
 int main() {
   rd_rng r;
@@ -13,9 +16,9 @@ int main() {
 
   const size_t max = 2048 + rd_rng_uintb(&r, 500);
   printf("Max: %u\n", (uint32_t)max);
-  
+
   double sum8 = 0.0, sum16 = 0.0, sum32 = 0.0, sum64 = 0.0;
-  
+
   uint8_t * arr8 = (uint8_t *)calloc(max, sizeof(uint8_t));
   uint16_t * arr16 = (uint16_t *)calloc(max, sizeof(uint16_t));
   uint32_t * arr32 = (uint32_t *)calloc(max, sizeof(uint32_t));
@@ -33,7 +36,7 @@ int main() {
   assert(sum16 == 0.0);
   assert(sum32 == 0.0);
   assert(sum64 == 0.0);
-  
+
   free(arr8);
   free(arr16);
   free(arr32);
@@ -43,7 +46,7 @@ int main() {
   arr16 = (uint16_t *)rd_randalloc(&r, max * sizeof(uint16_t));
   arr32 = (uint32_t *)rd_randalloc(&r, max * sizeof(uint32_t));
   arr64 = (uint64_t *)rd_randalloc(&r, max * sizeof(uint64_t));
-  
+
   for (i = 0; i < max; ++i) {
     sum8 += (double)arr8[i];
     sum16 += (double)arr16[i];
@@ -53,7 +56,7 @@ int main() {
 
   const double e8 = (sum8 / max) / UINT8_MAX;
   assert(e8 > 0.48 && e8 < 0.52);
-  
+
   const double e16 = (sum16 / max) / UINT16_MAX;
   assert(e16 > 0.48 && e16 < 0.52);
 

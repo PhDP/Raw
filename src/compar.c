@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "compar.h"
+#include "randamu/compar.h"
 
 int cmp_string_asc(const void *x, const void *y) {
   return strcmp(*(char **)x, *(char **)y);
