@@ -1,15 +1,8 @@
-# All the crap cmake generates:
-cmake_install.cmake
-CTestTestfile.cmake
-*.txt
-Testing/
-CMakeFiles/
-Makefile
-CMakeCache.txt
-
-# Build files
-Debug
+# Folder for building
 build
+
+# All the crap cmake generates:
+*.txt
 *.a
 *.o
 
