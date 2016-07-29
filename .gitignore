@@ -2,7 +2,6 @@
 build
 
 # All the crap cmake generates:
-*.txt
 *.a
 *.o
 
