@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(randamu)
 
+option(BuildTests "BuildTests" ON)
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 if (NOT CMAKE_BUILD_TYPE)
@@ -8,21 +10,38 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RELEASE")
 endif ()
 
-enable_testing()
+find_package(MATH)
+
+################################################################
+# FILES ########################################################
+
 include_directories(include)
 
-find_package(MATH)
+set(randamu_headers
+  include/randamu/common.h
+  include/randamu/compar.h
+  include/randamu/hash.h
+  include/randamu/numbers.h
+  include/randamu/sort.h
+  include/randamu/stats.h
+  include/randamu/well1024.h
+)
+
+set(randamu_src
+  src/compar.c
+  src/hash.c
+  src/numbers.c
+  src/well1024.c
+  src/sort.c
+)
+
+source_group("Randamu Source" FILES ${randamu_src})
+source_group("Randamu Headers" FILES ${randamu_headers})
 
 ################################################################
 # BUILD LIBRARY ################################################
 
-add_library(randamu STATIC
-  src/compar.c
-  src/hash.c
-  src/numbers.c
-  src/rng.c
-  src/sort.c
-)
+add_library(randamu STATIC ${randamu_src})
 
 target_link_libraries(randamu ${MATH_LIBS})
 
@@ -35,23 +54,24 @@ install(DIRECTORY include/randamu DESTINATION include)
 ################################################################
 # TESTS ########################################################
 
-set(all_tests "")
+if (BuildTests)
+  enable_testing()
+  add_subdirectory(tests)
+endif ()
 
-# Macro for adding tests:
-macro(add_librandamu_test NAME)
-  list(APPEND all_tests ${NAME})
-  add_executable(${NAME} tests/${NAME}.c)
-  target_link_libraries(${NAME} ${MATH_LIBS} randamu)
-  add_test(NAME ${NAME} COMMAND ${NAME})
-endmacro(add_librandamu_test)
+################################################################
+# SUMMARY ######################################################
 
-add_librandamu_test(test_rng_seq)
-add_librandamu_test(test_rng_double)
-add_librandamu_test(test_rng_uint)
-add_librandamu_test(test_rng_init)
-add_librandamu_test(test_rng_normal)
-add_librandamu_test(test_randalloc)
-add_librandamu_test(test_sort)
-add_librandamu_test(test_numbers)
-add_librandamu_test(test_common)
-
+message(STATUS "")
+message(STATUS "BUILD SUMMARY")
+message(STATUS "  CMAKE_GENERATOR      : ${CMAKE_GENERATOR}")
+message(STATUS "  Build tests          : ${BuildTests}")
+message(STATUS "  Compiler ID          : ${CMAKE_C_COMPILER_ID}")
+message(STATUS "  Build type           : ${CMAKE_BUILD_TYPE}")
+message(STATUS "  C_FLAGS              : ${CMAKE_C_FLAGS}")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "RELEASE")
+  message(STATUS "  C_FLAGS_RELEASE      : ${CMAKE_C_FLAGS_RELEASE}")
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "DEBUG")
+  message(STATUS "  C_FLAGS_DEBUG        : ${CMAKE_C_FLAGS_DEBUG}")
+endif ()
+message(STATUS "")

@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "randamu/common.h"
-#include "randamu/rng.h"
+#include "randamu/well1024.h"
 #include "randamu/sort.h"
 
 bool rd_sorted(const void *base, size_t nmemb, size_t size,

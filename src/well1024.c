@@ -6,7 +6,7 @@
 #include <string.h>
 #include <math.h>
 #include <limits.h>
-#include "randamu/rng.h"
+#include "randamu/well1024.h"
 
 // From Julienne Walker.
 uint32_t rd_time_seed() {

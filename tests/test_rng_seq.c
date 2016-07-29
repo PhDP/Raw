@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "randamu/rng.h"
+#include "randamu/well1024.h"
 
 int main() {
   // Test the sequence agains the original author's code:

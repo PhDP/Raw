@@ -6,7 +6,7 @@
 #ifndef RD_STATS_H_
 #define RD_STATS_H_
 
-#include "common.h"
+#include "randamu/common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,7 +19,7 @@ extern "C" {
  *
  * \param base      Base of the array.
  * \param nmemb     Number of elements in the array.
- * \param st        Stat function to call on the sorted data.       
+ * \param st        Stat function to call on the sorted data.
  * \return          Results from the stat function.
  */
 double rd_sort_stat(const double *base, size_t nmemb, double (*st)(const double *, const void *));

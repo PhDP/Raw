@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "randamu/rng.h"
+#include "randamu/well1024.h"
 #include "randamu/sort.h"
 #include "randamu/compar.h"
 

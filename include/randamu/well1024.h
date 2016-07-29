@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "common.h"
+#include "randamu/common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,7 +135,7 @@ double rd_rng_exp(rd_rng *r);
  */
 int rd_rng_poisson(rd_rng *r, double lambda);
 
-/** 
+/**
  * \brief Allocates a random block of memory.
  *
  * \param r         The generator.

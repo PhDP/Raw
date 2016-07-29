@@ -7,8 +7,8 @@
 #ifndef RD_SORT_H_
 #define RD_SORT_H_
 
-#include "rng.h"
-#include "common.h"
+#include "randamu/common.h"
+#include "randamu/well1024.h"
 
 #ifdef __cplusplus
 extern "C" {
