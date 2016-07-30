@@ -21,7 +21,7 @@ extern "C" {
  * \param nmemb     Number of elements in the array.
  * \param size      Size, in bytes, of each element.
  * \param cmp       Function that returns a number above 0 if it's two arguments
- *are not in the right order.
+ *                  are not in the right order.
  * \return          True if the array is sorted, false otherwise.
  */
 bool rd_sorted(const void *base, size_t nmemb, size_t size,
@@ -35,7 +35,7 @@ bool rd_sorted(const void *base, size_t nmemb, size_t size,
  * \param size     Size of the data (in bytes) inside the array.
  * \param rng      An initialized well1024 random number generator.
  */
-void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r);
+void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_well1024 *r);
 
 /**
  * \brief Sort with bogosort!
@@ -44,12 +44,12 @@ void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r);
  * \param nmemb    Number of elements in the array.
  * \param size     Size of an element.
  * \param cmp      Function to compare elements (same as the argument for qsort,
- *see compar.h).
+ *                 see compar.h).
  * \param r        A random number generator.
  * \return         The number of attempts needed to sort.
  */
 size_t rd_bogosort(void *x, size_t nmemb, size_t size,
-                   int (*cmp)(const void *, const void *), rd_rng *r);
+                   int (*cmp)(const void *, const void *), rd_well1024 *r);
 
 /**
  * \brief Bogosort algorithm with the same type signature as qsort, so it
@@ -59,7 +59,7 @@ size_t rd_bogosort(void *x, size_t nmemb, size_t size,
  * \param nmemb    Number of elements in the array.
  * \param size     Size of an element.
  * \param cmp      Function to compare elements (same as the argument for qsort,
- *see compar.h).
+ *                 see compar.h).
  */
 void rd_stdbogosort(void *x, size_t nmemb, size_t size,
                     int (*cmp)(const void *, const void *));

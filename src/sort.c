@@ -22,12 +22,12 @@ bool rd_sorted(const void *base, size_t nmemb, size_t size,
   return true;
 }
 
-void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r) {
+void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_well1024 *r) {
   uint8_t *swap = (uint8_t *)malloc(size);
   int x;
   size_t i = nmemb - 1;
   for (; i > 0; --i) {
-    x = rd_rng_intb(r, i + 1);
+    x = rd_well1024_intb(r, i + 1);
     memcpy((void *)swap, (void *)((uint8_t *)base + x * size), size);
     memcpy((void *)((uint8_t *)base + (x * size)),
            (void *)((uint8_t *)base + (i * size)), size);
@@ -37,7 +37,7 @@ void rd_knuth_shuffle(void *base, size_t nmemb, size_t size, rd_rng *r) {
 }
 
 size_t rd_bogosort(void *base, size_t nmemb, size_t size,
-                   int (*cmp)(const void *, const void *), rd_rng *r) {
+                   int (*cmp)(const void *, const void *), rd_well1024 *r) {
   size_t attempts = 0;
   while (!rd_sorted(base, nmemb, size, cmp)) {
     ++attempts;
@@ -48,8 +48,8 @@ size_t rd_bogosort(void *base, size_t nmemb, size_t size,
 
 void rd_stdbogosort(void *base, size_t nmemb, size_t size,
                     int (*cmp)(const void *, const void *)) {
-  rd_rng r;
-  rd_rng_init_time(&r);
+  rd_well1024 r;
+  rd_well1024_init_time(&r);
   rd_bogosort(base, nmemb, size, cmp, &r);
 }
 

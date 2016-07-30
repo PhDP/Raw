@@ -25,7 +25,7 @@ extern "C" {
  * \return          A negative number if x should be before y, 0 if equal, a
  *positive number otherwise.
  */
-int cmp_string_asc(const void *x, const void *y);
+int rd_cmp_string_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort the strings in descending order.
@@ -35,7 +35,7 @@ int cmp_string_asc(const void *x, const void *y);
  * \return          A positive number if x should be before y, 0 if equal, a
  *negative number otherwise.
  */
-int cmp_string_des(const void *x, const void *y);
+int rd_cmp_string_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort characters in ascending order.
@@ -45,7 +45,7 @@ int cmp_string_des(const void *x, const void *y);
  * \return          A negative number if x should be before y, 0 if equal, a
  *positive number otherwise.
  */
-int cmp_char_asc(const void *x, const void *y);
+int rd_cmp_char_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort characters in descending order.
@@ -55,7 +55,7 @@ int cmp_char_asc(const void *x, const void *y);
  * \return          A positive number if x should be before y, 0 if equal, a
  *negative number otherwise.
  */
-int cmp_char_des(const void *x, const void *y);
+int rd_cmp_char_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort unsigned characters in ascending order.
@@ -65,7 +65,7 @@ int cmp_char_des(const void *x, const void *y);
  * \return          A negative number if x should be before y, 0 if equal, a
  *positive number otherwise.
  */
-int cmp_uchar_asc(const void *x, const void *y);
+int rd_cmp_uchar_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort unsigned characters in descending order.
@@ -75,7 +75,7 @@ int cmp_uchar_asc(const void *x, const void *y);
  * \return          A positive number if x should be before y, 0 if equal, a
  *negative number otherwise.
  */
-int cmp_uchar_des(const void *x, const void *y);
+int rd_cmp_uchar_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort doubles in ascending order.
@@ -84,7 +84,7 @@ int cmp_uchar_des(const void *x, const void *y);
  * \param y         Second double.
  * \return          -1 if x < y, 0 if x == y, 1 if x > y.
  */
-int cmp_double_asc(const void *x, const void *y);
+int rd_cmp_double_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort doubles in ascending order.
@@ -93,7 +93,7 @@ int cmp_double_asc(const void *x, const void *y);
  * \param y         Second double.
  * \return          1 if x < y, 0 if x == y, -1 if x > y.
  */
-int cmp_double_des(const void *x, const void *y);
+int rd_cmp_double_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort floats in ascending order.
@@ -102,7 +102,7 @@ int cmp_double_des(const void *x, const void *y);
  * \param y         Second float.
  * \return          -1 if x < y, 0 if x == y, 1 if x > y.
  */
-int cmp_float_asc(const void *x, const void *y);
+int rd_cmp_float_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort floats in ascending order.
@@ -111,7 +111,7 @@ int cmp_float_asc(const void *x, const void *y);
  * \param y         Second float.
  * \return          1 if x < y, 0 if x == y, -1 if x > y.
  */
-int cmp_float_des(const void *x, const void *y);
+int rd_cmp_float_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort integers in ascending order.
@@ -120,7 +120,7 @@ int cmp_float_des(const void *x, const void *y);
  * \param y         Second int.
  * \return          x - y.
  */
-int cmp_int_asc(const void *x, const void *y);
+int rd_cmp_int_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort integers in descending order.
@@ -129,7 +129,7 @@ int cmp_int_asc(const void *x, const void *y);
  * \param y         Second int.
  * \return          y - x.
  */
-int cmp_int_des(const void *x, const void *y);
+int rd_cmp_int_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort unsigned integers in ascending order.
@@ -138,7 +138,7 @@ int cmp_int_des(const void *x, const void *y);
  * \param y         Second unsigned int.
  * \return          x - y.
  */
-int cmp_uint_asc(const void *x, const void *y);
+int rd_cmp_uint_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort unsigned integers in descending order.
@@ -147,7 +147,7 @@ int cmp_uint_asc(const void *x, const void *y);
  * \param y         Second unsigned int.
  * \return          y - x.
  */
-int cmp_uint_des(const void *x, const void *y);
+int rd_cmp_uint_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort longs in ascending order.
@@ -156,7 +156,7 @@ int cmp_uint_des(const void *x, const void *y);
  * \param y         Second long.
  * \return          x - y.
  */
-int cmp_long_asc(const void *x, const void *y);
+int rd_cmp_long_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort longs in descending order.
@@ -165,7 +165,7 @@ int cmp_long_asc(const void *x, const void *y);
  * \param y         Second long.
  * \return          y - x.
  */
-int cmp_long_des(const void *x, const void *y);
+int rd_cmp_long_des(const void *x, const void *y);
 
 /**
  * \brief Used to sort unsigned longs in ascending order.
@@ -174,7 +174,7 @@ int cmp_long_des(const void *x, const void *y);
  * \param y         Second unsigned long.
  * \return          x - y.
  */
-int cmp_ulong_asc(const void *x, const void *y);
+int rd_cmp_ulong_asc(const void *x, const void *y);
 
 /**
  * \brief Used to sort unsigned longs in descending order.
@@ -183,7 +183,7 @@ int cmp_ulong_asc(const void *x, const void *y);
  * \param y         Second unsigned long.
  * \return          y - x.
  */
-int cmp_ulong_des(const void *x, const void *y);
+int rd_cmp_ulong_des(const void *x, const void *y);
 
 #ifdef __cplusplus
 }

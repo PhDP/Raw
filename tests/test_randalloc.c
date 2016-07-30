@@ -5,16 +5,16 @@
 #include "randamu/well1024.h"
 
 int main() {
-  rd_rng r;
-  rd_rng_init_time(&r);
-  printf("Seed: %u\n", r.seed);
+  rd_well1024 r;
+  rd_well1024_init_time(&r);
+  printf("Seed: %lu\n", r.seed);
 
   assert(sizeof(uint8_t) == 1);
   assert(sizeof(uint16_t) == 2);
   assert(sizeof(uint32_t) == 4);
   assert(sizeof(uint64_t) == 8);
 
-  const size_t max = 2048 + rd_rng_uintb(&r, 500);
+  const size_t max = 2048 + rd_well1024_uintb(&r, 500);
   printf("Max: %u\n", (uint32_t)max);
 
   double sum8 = 0.0, sum16 = 0.0, sum32 = 0.0, sum64 = 0.0;
@@ -70,7 +70,7 @@ int main() {
   uint32_t allsamples = 0;
   double sumS = 0.0;
   for (i = 0; i < 100; ++i) {
-    const uint32_t sample = rd_rng_uintb(&r, 100) + 1;
+    const uint32_t sample = rd_well1024_uintb(&r, 100) + 1;
     arr8 = (uint8_t *)rd_randalloc(&r, max * sizeof(uint8_t));
     size_t j = 0;
     for (; j < sample; ++j) {

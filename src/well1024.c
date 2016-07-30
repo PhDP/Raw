@@ -21,7 +21,7 @@ uint32_t rd_time_seed() {
   return seed;
 }
 
-uint32_t rd_rng_init(rd_rng *r, uint32_t seed) {
+uint32_t rd_well1024_init(rd_well1024 *r, uint32_t seed) {
   if (seed == 0) {
     seed = 42;
   }
@@ -37,8 +37,8 @@ uint32_t rd_rng_init(rd_rng *r, uint32_t seed) {
   return seed;
 }
 
-uint32_t rd_rng_init_time(rd_rng *r) {
-  return rd_rng_init(r, rd_time_seed());
+uint32_t rd_well1024_init_time(rd_well1024 *r) {
+  return rd_well1024_init(r, rd_time_seed());
 }
 
 #define RD_MAT3POS(t, v) ((v) ^ ((v) >> (t)))
@@ -59,32 +59,32 @@ uint32_t rd_rng_init_time(rd_rng *r) {
     r->state_n = (state_n + 31) & 0x0000001fUL; \
   } while (0)
 
-uint32_t rd_rng_uint(rd_rng *r) {
+uint32_t rd_well1024_uint(rd_well1024 *r) {
   uint32_t *const state = r->state;
   WELL1024_CORE;
   return state[r->state_n];
 }
 
-double rd_rng_double(rd_rng *r) {
+double rd_well1024_double(rd_well1024 *r) {
   uint32_t *const state = r->state;
   WELL1024_CORE;
   return state[r->state_n] * 2.32830643653869628906e-10;
 }
 
-double rd_rng_normal(rd_rng *r) {
+double rd_well1024_normal(rd_well1024 *r) {
   if (!(r->has_next = !r->has_next)) {
     return r->next_normal;
   }
   double n0, n1, s;
   do {
-    n0 = 2.0 * rd_rng_double(r) - 1.0;
-    n1 = 2.0 * rd_rng_double(r) - 1.0;
+    n0 = 2.0 * rd_well1024_double(r) - 1.0;
+    n1 = 2.0 * rd_well1024_double(r) - 1.0;
     s = n0 * n0 + n1 * n1;
   } while (s >= 1 || s == 0);
   return n0 * sqrt(-2.0 * log(s) / s);
 }
 
-void * rd_randalloc(rd_rng *r, size_t size) {
+void * rd_randalloc(rd_well1024 *r, size_t size) {
   if (size < 1) {
     return NULL;
   }
@@ -96,31 +96,31 @@ void * rd_randalloc(rd_rng *r, size_t size) {
   const uint8_t * stop = p + size;
   size_t rem = size % sizeof(uint32_t);
   while (rem-- > 0) {
-    *p = (uint8_t)rd_rng_uint(r);
+    *p = (uint8_t)rd_well1024_uint(r);
     p += sizeof(uint8_t);
   }
   while (p != stop) {
-    *((uint32_t*)p) = rd_rng_uint(r);
+    *((uint32_t*)p) = rd_well1024_uint(r);
     p += sizeof(uint32_t);
   }
   return base;
 }
 
-int rd_rng_poisson(rd_rng *r, double lambda) {
+int rd_well1024_poisson(rd_well1024 *r, double lambda) {
   const double l = pow(2.71828182845904523536, -lambda);
   double p = 1.0;
   int k = 0;
   do {
     ++k;
-    p *= rd_rng_double(r);
+    p *= rd_well1024_double(r);
   } while (p > l);
   return k - 1;
 }
 
-double rd_rng_exp(rd_rng *r) {
-  double x = rd_rng_double(r);
+double rd_well1024_exp(rd_well1024 *r) {
+  double x = rd_well1024_double(r);
   while (x == 0.0) {
-    x = rd_rng_double(r);
+    x = rd_well1024_double(r);
   }
   return -log(x);
 }

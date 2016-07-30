@@ -3,12 +3,12 @@
 #include <math.h>
 #include "randamu/stats.h"
 
-double rd_sort_stat(const double *base, size_t nmemb,
-                    double (*st)(const double *, size_t)) {
-  double *sorted = (double *)malloc(nmemb * sizeof(double));
+double rd_sort_stat(const double* base, size_t nmemb,
+                    double (*st)(const double*, size_t)) {
+  double *sorted = (double*)malloc(nmemb * sizeof(double));
   memcpy((void *)sorted, (void *)base, nmemb * sizeof(double));
   qsort((void *)sorted, nmemb, sizeof(double), cmp_double_asc);
-  const res = st(sorted, nmemb);
+  const double res = st(sorted, nmemb);
   free(sorted);
   return res;
 }
@@ -25,12 +25,10 @@ void rd_mean_var(const double *x, size_t nmemb, double *mean, double *var) {
     m2 += delta * (x[i] - m);
   }
 
-  if (mean != NULL) {
-    (*mean) = m;
-  }
-  if (var != NULL) {
-    (*var) = m2 / (nmemb - 1);
-  }
+  if (mean != NULL)
+    *mean = m;
+  if (var != NULL)
+    *var = m2 / (nmemb - 1);
 }
 
 double rd_mean(const double *x, size_t nmemb) {
@@ -68,8 +66,7 @@ double rd_kutorsis(const double *x, size_t nmemb) {
     delta_n2 = delta_n * delta_n;
     term1 = delta * delta_n * i;
     m1 += delta_n;
-    m4 += term1 * delta_n2 * (i1 * i1 - 3 * i1 + 3) + 6 * delta_n2 * m2 -
-          4 * delta_n * m3;
+    m4 += term1 * delta_n2 * (i1 * i1 - 3 * i1 + 3) + 6 * delta_n2 * m2 - 4 * delta_n * m3;
     m3 += term1 * delta_n * (i1 - 2) - 3 * delta_n * m2;
     m2 += term1;
   }

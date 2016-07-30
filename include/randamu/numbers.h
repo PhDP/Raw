@@ -40,7 +40,7 @@ int rd_round_odd(double n);
  * \param nmemb     Number of elements in the array.
  * \return          Sum of all the values in the array.
  */
-double rd_sortsum(const double *base, int nmemb);
+double rd_sortsum(const double *base, size_t nmemb);
 
 #ifdef __cplusplus
 }

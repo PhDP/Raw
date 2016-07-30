@@ -5,14 +5,14 @@
 #include "randamu/well1024.h"
 
 int main() {
-  rd_rng r;
-  rd_rng_init_time(&r);
+  rd_well1024 r;
+  rd_well1024_init_time(&r);
   const int max = 1024;
   double sum = 0.0;
 
   int i = 0;
   for (; i < max; ++i) {
-    const double x = rd_rng_double(&r);
+    const double x = rd_well1024_double(&r);
     sum += x;
     assert(x >= 0.0 && x < 1.0);
   }

@@ -15,8 +15,6 @@ extern "C" {
 
 /**
  * \brief The murmur3 32-bit hash.
- *
- * ...
  */
 uint32_t rd_murmur3_32(const char *key, uint32_t len, uint32_t seed);
 

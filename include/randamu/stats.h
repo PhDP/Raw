@@ -22,7 +22,7 @@ extern "C" {
  * \param st        Stat function to call on the sorted data.
  * \return          Results from the stat function.
  */
-double rd_sort_stat(const double *base, size_t nmemb, double (*st)(const double *, const void *));
+double rd_sort_stat(const double *base, size_t nmemb, double (*st)(const double*, size_t));
 
 #ifdef __cplusplus
 }

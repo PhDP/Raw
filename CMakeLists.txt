@@ -25,18 +25,25 @@ set(randamu_headers
   include/randamu/sort.h
   include/randamu/stats.h
   include/randamu/well1024.h
+  include/randamu/splitmix64.h
+  include/randamu/xorshift128.h
+  include/randamu/xorshift1024.h
 )
+
+source_group("Randamu Headers" FILES ${randamu_headers})
 
 set(randamu_src
   src/compar.c
   src/hash.c
   src/numbers.c
-  src/well1024.c
   src/sort.c
+  src/splitmix64.c
+  src/well1024.c
+  src/xorshift128.c
+  src/xorshift1024.c
 )
 
 source_group("Randamu Source" FILES ${randamu_src})
-source_group("Randamu Headers" FILES ${randamu_headers})
 
 ################################################################
 # BUILD LIBRARY ################################################
