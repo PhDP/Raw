@@ -2,7 +2,7 @@
   <img src='http://phdp.github.io/images/randamu.png' alt='Randamu logo'/>
 </p>
 
-[![Build status](https://travis-ci.org/PhDP/randamu.svg?branch=master)](https://travis-ci.org/PhDP/randamu)
+[![Build status](https://travis-ci.org/PhDP/Randamu.svg?branch=master)](https://travis-ci.org/PhDP/Randamu)
 [![Build status](https://ci.appveyor.com/api/projects/status/9nqqxwsbdufa2wfj)](https://ci.appveyor.com/project/PhilippeDesjardinsProulx/randamu-855)
 
 randamu is a small MIT-licensed C library that includes a high-quality random
