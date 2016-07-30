@@ -10,6 +10,8 @@ extern "C" {
 #define RANDAMU_MINOR   1
 #define RANDAMU_PATCH   0
 
+#include <string.h>
+
 /**
  * \brief A generic swap macro.
  *
@@ -27,7 +29,7 @@ extern "C" {
     uint8_t *tmp = (uint8_t*)malloc(size); \ // alloca???
     memcpy((void*)tmp, (void*)(b), size); \
     memcpy((void*)(b), (void*)(a), size); \
-    memcpy((void*)(a), (void*)&tmp, size); \
+    memcpy((void*)(a), (void*)tmp, size); \
     free(tmp); \
   } while(0)
 #else
