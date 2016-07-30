@@ -1,14 +1,23 @@
 language: c
 
-# Compilers to test
-compiler:
-  - clang
-  - gcc
+matrix:
+  include:
+    - env: BUILD=DEBUG
+      compiler: gcc
+
+    - env: BUILD=RELEASE
+      compiler: gcc
+
+    - env: BUILD=DEBUG
+      compiler: clang
+
+    - env: BUILD=RELEASE
+      compiler: clang
 
 # Command to run tests
 script:
   - mkdir build && cd $_
-  - cmake ..
+  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD}
   - make
   - make test
 
