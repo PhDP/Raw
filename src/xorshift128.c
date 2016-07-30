@@ -35,8 +35,9 @@ void rd_xs128_jump(rd_xs128 *r) {
   static const uint64_t JUMP[] = { 0xbeac0467eba5facb, 0xd86b048b86aa9922 };
 
   uint64_t s0 = 0, s1 = 0;
-  for (int i = 0; i < sizeof JUMP / sizeof *JUMP; i++)
-    for (int b = 0; b < 64; b++) {
+  int i, b;
+  for (i = 0; i < sizeof JUMP / sizeof *JUMP; i++)
+    for (b = 0; b < 64; b++) {
       if (JUMP[i] & 1ULL << b) {
         s0 ^= r->state[0];
         s1 ^= r->state[1];

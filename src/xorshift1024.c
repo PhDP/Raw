@@ -31,17 +31,18 @@ void rd_xs1024_jump(rd_xs1024 *r) {
   };
 
   uint64_t t[16] = { 0 };
-  for (int i = 0; i < sizeof JUMP / sizeof *JUMP; ++i) {
-    for (int b = 0; b < 64; ++b) {
+  int i, b, j;
+  for (i = 0; i < sizeof JUMP / sizeof *JUMP; ++i) {
+    for (b = 0; b < 64; ++b) {
       if (JUMP[i] & 1ULL << b) {
-        for (int j = 0; j < 16; ++j) {
+        for (j = 0; j < 16; ++j) {
           t[j] ^= r->state[(j + r->p) & 15];
         }
       }
       rd_xs1024_next(r);
     }
   }
-  for (int j = 0; j < 16; j++) {
+  for (j = 0; j < 16; j++) {
     r->state[(j + r->p) & 15] = t[j];
   }
 }
