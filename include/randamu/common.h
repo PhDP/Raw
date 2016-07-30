@@ -24,9 +24,10 @@ extern "C" {
  * \param size    Size of the data of swap in bytes.
  */
 #ifdef _MSC_VER
+// Use alloca instead of malloc on windows?
 #define rd_swap(a, b, size) \
   do { \
-    uint8_t *tmp = (uint8_t*)malloc(size); \ // alloca???
+    uint8_t *tmp = (uint8_t*)malloc(size); \
     memcpy((void*)tmp, (void*)(b), size); \
     memcpy((void*)(b), (void*)(a), size); \
     memcpy((void*)(a), (void*)tmp, size); \
