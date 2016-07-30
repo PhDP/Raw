@@ -23,9 +23,8 @@ Installing
 ----------
 On Linux or UNIX-like systems:
 
-    $ git clone https://github.com/PhDP/randamu.git
-    $ cd randamu
-    $ mkdir build && cd build
+    $ git clone https://github.com/PhDP/Randamu.git
+    $ mkdir -p Randamu/build && cd $_
     $ cmake ..
     $ make
     $ sudo make install
