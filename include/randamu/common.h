@@ -10,6 +10,7 @@ extern "C" {
 #define RANDAMU_MINOR   1
 #define RANDAMU_PATCH   0
 
+#include <stdint.h>
 #include <string.h>
 
 /**
