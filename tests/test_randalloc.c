@@ -7,7 +7,7 @@
 int main() {
   rd_well1024 r;
   rd_well1024_init_time(&r);
-  printf("Seed: %lu\n", r.seed);
+  printf("Seed: %u\n", r.seed);
 
   assert(sizeof(uint8_t) == 1);
   assert(sizeof(uint16_t) == 2);

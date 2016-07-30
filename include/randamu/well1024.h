@@ -1,12 +1,11 @@
 /*! \file
  *
  * \brief The rd_well1024 random number generator, based on: P L'Ecuyer,
- * F Panneton, and M Matsumoto. Improved Long-Period Generators Based on Linear
- * Recurrences Modulo 2.
+ *        F Panneton, and M Matsumoto. Improved Long-Period Generators Based on
+ *        Linear Recurrences Modulo 2.
  */
-
-#ifndef rd_well1024_H_
-#define rd_well1024_H_
+#ifndef RANDAMU_WELL1024_H_
+#define RANDAMU_WELL1024_H_
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -50,12 +49,12 @@ typedef struct {
  * Warning: on most systems it will return the same value if called twice within
  * one second.
  *
- * \return          An uint32_teger derived from time().
+ * \return          An uint32_t integer derived from time().
  */
 uint32_t rd_time_seed();
 
 /**
- * \brief Seed a rd_well1024 generator with an uint32_teger.
+ * \brief Seed a rd_well1024 generator with an uint32_t integer.
  *
  * \param rng       The generator.
  * \param seed      The seed used to initialize the generator.

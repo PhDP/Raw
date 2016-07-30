@@ -11,29 +11,27 @@
 // From Julienne Walker.
 uint32_t rd_time_seed() {
   time_t now = time(0);
-  unsigned char *p = (unsigned char *)&now;
+  unsigned char *p = (unsigned char*)&now;
   uint32_t seed = 0;
   // Knuth's method (TAOCP vol 2).
   size_t i = 0;
-  for (; i < sizeof(now); ++i) {
+  for (; i < sizeof(now); ++i)
     seed = seed * (UCHAR_MAX + 2U) + p[i];
-  }
   return seed;
 }
 
 uint32_t rd_well1024_init(rd_well1024 *r, uint32_t seed) {
-  if (seed == 0) {
+  if (seed == 0)
     seed = 42;
-  }
   r->state_n = 0;
   r->state[0] = seed & 0xffffffffU;
   r->has_next = false;
   r->seed = seed;
 
   int i = 1;
-  for (; i < 32; ++i) {
+  for (; i < 32; ++i)
     r->state[i] = (69069 * r->state[i - 1]) & 0xffffffffU;
-  }
+
   return seed;
 }
 
@@ -48,7 +46,7 @@ uint32_t rd_well1024_init_time(rd_well1024 *r) {
   { \
     const uint32_t state_n = r->state_n; \
     const uint32_t z1 = RD_IDEN(state[state_n]) ^ \
-                      RD_MAT3POS(8, state[(state_n + 3) & 0x0000001fUL]); \
+                        RD_MAT3POS(8, state[(state_n + 3) & 0x0000001fUL]); \
     const uint32_t z2 = \
       RD_MAT3NEG((-19), state[(state_n + 24) & 0x0000001fUL]) ^ \
       RD_MAT3NEG((-14), state[(state_n + 10) & 0x0000001fUL]); \
@@ -72,9 +70,6 @@ double rd_well1024_double(rd_well1024 *r) {
 }
 
 double rd_well1024_normal(rd_well1024 *r) {
-  if (!(r->has_next = !r->has_next)) {
-    return r->next_normal;
-  }
   double n0, n1, s;
   do {
     n0 = 2.0 * rd_well1024_double(r) - 1.0;
