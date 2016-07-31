@@ -1,5 +1,6 @@
 #include <time.h>
 #include <math.h>
+#include <string.h>
 #include "randamu/splitmix64.h"
 #include "randamu/xorshift1024.h"
 
@@ -10,6 +11,12 @@ void rd_xs1024_init(rd_xs1024 *r, uint64_t seed) {
 
 void rd_xs1024_init_time(rd_xs1024 *r) {
   rd_xs1024_init(r, time(NULL));
+}
+
+void rd_xs1024_init_jump(rd_xs1024 *r, const rd_xs1024 *r0) {
+  r->p = r0->p;
+  memcpy((void*)&r->state[0], (void*)&r0->state[0], 16 * sizeof(uint64_t));
+  rd_xs1024_jump(r);
 }
 
 uint64_t rd_xs1024_next(rd_xs1024 *r) {
@@ -35,6 +42,18 @@ double rd_xs1024_normal(rd_xs1024 *r) {
     s = n0 * n0 + n1 * n1;
   } while (s >= 1 || s == 0);
   return n0 * sqrt(-2.0 * log(s) / s);
+}
+
+void rd_xs1024_normals(rd_xs1024 *r, double *n0, double *n1) {
+  double s;
+  do {
+    *n0 = 2.0 * rd_xs1024_double(r) - 1.0;
+    *n1 = 2.0 * rd_xs1024_double(r) - 1.0;
+    s = (*n0) * (*n0) + (*n1) * (*n1);
+  } while (s >= 1 || s == 0);
+  s = sqrt(-2.0 * log(s) / s);
+  *n0 *= s;
+  *n1 *= s;
 }
 
 int rd_xs1024_poisson(rd_xs1024 *r, double lambda) {

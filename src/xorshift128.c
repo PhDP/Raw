@@ -19,6 +19,12 @@ void rd_xs128_init_time(rd_xs128 *r) {
   r->state[1] = rd_splitmix64(r->state[0]);
 }
 
+void rd_xs128_init_jump(rd_xs128 *r, const rd_xs128 *r0) {
+  r->state[0] = r0->state[0];
+  r->state[1] = r0->state[1];
+  rd_xs128_jump(r);
+}
+
 uint64_t rd_xs128_next(rd_xs128 *r) {
   const uint64_t s0 = r->state[0];
   uint64_t s1 = r->state[1];
@@ -46,6 +52,18 @@ double rd_xs128_normal(rd_xs128 *r) {
     s = n0 * n0 + n1 * n1;
   } while (s >= 1 || s == 0);
   return n0 * sqrt(-2.0 * log(s) / s);
+}
+
+void rd_xs128_normals(rd_xs128 *r, double *n0, double *n1) {
+  double s;
+  do {
+    *n0 = 2.0 * rd_xs128_double(r) - 1.0;
+    *n1 = 2.0 * rd_xs128_double(r) - 1.0;
+    s = (*n0) * (*n0) + (*n1) * (*n1);
+  } while (s >= 1 || s == 0);
+  s = sqrt(-2.0 * log(s) / s);
+  *n0 *= s;
+  *n1 *= s;
 }
 
 int rd_xs128_poisson(rd_xs128 *r, double lambda) {
