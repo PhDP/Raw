@@ -22,7 +22,7 @@ auto main(int argc, char **argv) -> int {
   }
 
   // Print estimate of pi:
-  cout << "Pi ~= %f!\n" << (4.0 * success / n)
+  cout << "Pi ~= " << (4.0 * success / n) << '\n'
        << "Time: " << ((double)(clock() - start) / CLOCKS_PER_SEC)
        << " seconds." << endl;
 
