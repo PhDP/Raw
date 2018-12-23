@@ -79,7 +79,7 @@ uint32_t rd_well1024_init_time(rd_well1024 *r);
 double rd_well1024_double(rd_well1024 *r);
 
 /**
- * \brief Returns a number in the [0, 4294967296] range.
+ * \brief Returns a number in the [0, 4294967296] range. Uses a fast (but slightly biaised) method.
  *
  * \param rng       The generator.
  * \return          A random value in the [0, 4294967296] uniform range.
@@ -88,7 +88,7 @@ uint32_t rd_well1024_uint(rd_well1024 *r);
 
 /**
  * \brief Return an integer in the [0, b) uniform range (including 0, excluding
- * b).
+ * b). Uses a fast (but slightly biaised) method.
  *
  * Bechmarks show ~5% performane improvement over a normal function, which
  * is enough to justify the define for such procedure.
@@ -101,7 +101,7 @@ uint32_t rd_well1024_uint(rd_well1024 *r);
 
 /**
  * \brief Return an uint32_teger in the [0, b) uniform range (including 0,
- * excluding b).
+ * excluding b). Uses a fast (but slightly biaised) method.
  *
  * \param rng       The generator.
  * \param b         Upper limit: the highest possible value is b - 1.
