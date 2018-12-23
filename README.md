@@ -3,9 +3,6 @@
 </p>
 
 [![Build status](https://travis-ci.org/PhDP/Randamu.svg?branch=master)](https://travis-ci.org/PhDP/Randamu)
-[![Build status](https://ci.appveyor.com/api/projects/status/9nqqxwsbdufa2wfj)](https://ci.appveyor.com/project/PhilippeDesjardinsProulx/randamu-855)
-
-...
 
 The bogosort algorithm is a joke (don't use it!), but everything
 else is not.
