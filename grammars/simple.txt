@@ -1,0 +1,14 @@
+<expr>    ::= <expr> <op> <expr>
+            | (<expr> <op> <expr>)
+            | <pre-op><expr>
+            | <fun1>(<expr)
+            | <fun2>(<expr>, <expr>)
+            | <var>
+
+<op>      ::= + | - | / | *
+<pre-op>  ::= -
+<fun1>    ::= sin | cos | tan
+<fun2>    ::= fmod
+<var>     ::= x | y
+
+9, 0, 2, 3, 0, 3, 1, 2, 8, 7, 6, 4, 5, 1, 1, 0

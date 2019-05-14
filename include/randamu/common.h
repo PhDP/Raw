@@ -1,51 +1,30 @@
-#ifndef RD_COMMON_H_
-#define RD_COMMON_H_
+/**
+ * @file common.h
+ * @brief Common includes and macros for Akarui.
+ */
+#ifndef RANDAMU_COMMON_H_
+#define RANDAMU_COMMON_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#define RANDAMU         "0.0.0"
-#define RANDAMU_MAJOR   0
-#define RANDAMU_MINOR   1
-#define RANDAMU_PATCH   0
-
+#include <stdlib.h>
+#include <stdio.h>
 #include <stdint.h>
+#include <stdarg.h>
 #include <string.h>
+#include <math.h>
+#include <complex.h>
+#include "SFMT/SFMT.h"
+
+#ifdef RANDAMU_CUDA
+//  #include <cuda/...>
+#endif
 
 /**
- * \brief A generic swap macro.
- *
- * I'm not always using this code for swapping when I
- * can avoid allocating memory for every swap operation
- * in a tight loop.
- *
- * \param a       Pointer to the first value to swap.
- * \param b       Pointer to the second value to swap.
- * \param size    Size of the data of swap in bytes.
+ * @brief Checks if 'n' is a power of two.
  */
-#ifdef _MSC_VER
-// Use alloca instead of malloc on windows?
-#define rd_swap(a, b, size) \
-  do { \
-    uint8_t *tmp = (uint8_t*)malloc(size); \
-    memcpy((void*)tmp, (void*)(b), size); \
-    memcpy((void*)(b), (void*)(a), size); \
-    memcpy((void*)(a), (void*)tmp, size); \
-    free(tmp); \
-  } while(0)
-#else
-#define rd_swap(a, b, size) \
-  do { \
-    uint8_t tmp[size]; \
-    memcpy((void*)&tmp, (void*)(b), size); \
-    memcpy((void*)(b), (void*)(a), size); \
-    memcpy((void*)(a), (void*)&tmp, size); \
-  } while(0)
-#endif
+#define rd_is_power_of_two(n)    (((n) != 0) && (((n) & (~(n) + 1)) == (n)))
 
-#ifdef __cplusplus
-}
+#ifndef RANDAMU_INITIAL_GRAPH_CAPACITY
+#define RANDAMU_INITIAL_GRAPH_CAPACITY 8
 #endif
 
 #endif

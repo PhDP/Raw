@@ -1,84 +1,79 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 project(randamu)
-
-option(BuildTests "BuildTests" ON)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-if (NOT CMAKE_BUILD_TYPE)
+# Set build type to RELEASE by default:
+if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "No build type provided, default to RELEASE.")
   set(CMAKE_BUILD_TYPE "RELEASE")
-endif ()
+endif()
 
-find_package(MATH)
+# Options
 
-################################################################
-# FILES ########################################################
+option(RANDAMU_STATIC       "Builds a static library instead of a shared one." OFF)
+option(RANDAMU_TEST         "Adds target for tests." OFF)
+option(RANDAMU_BENCH        "Adds target for benchmarks." OFF)
+option(RANDAMU_EXAMPLES     "Builds examples." OFF)
+option(RANDAMU_CUDA         "Adds support for CUDA." OFF)
+option(RANDAMU_NATIVE       "Adds -march=native flag." OFF)
+option(RANDAMU_SANITIZE     "Adds -fsanitize=address -fsanitize=undefined flags." OFF)
+option(RANDAMU_PI           "Builds a position-independent library." OFF)
 
-include_directories(include)
+# Define a few stuff
 
-set(randamu_headers
-  include/randamu/common.h
-  include/randamu/compar.h
-  include/randamu/hash.h
-  include/randamu/numbers.h
-  include/randamu/sort.h
-  include/randamu/stats.h
-  include/randamu/well1024.h
-  include/randamu/splitmix64.h
-  include/randamu/xorshift128.h
-  include/randamu/xorshift1024.h
-)
+if(RANDAMU_STATIC)
+  set(RANDAMU_LIB_TYPE STATIC)
+  set(RANDAMU_LIB_NAME "randamu_static")
+  add_definitions(-DRANDAMU_STATIC_LIBRARY)
+else()
+  set(RANDAMU_LIB_TYPE SHARED)
+  set(RANDAMU_LIB_NAME "randamu")
+  add_definitions(-DRANDAMU_SHARED_LIBRARY)
+endif()
 
-source_group("Randamu Headers" FILES ${randamu_headers})
+add_definitions(-DSFMT_MEXP=19937)
 
-set(randamu_src
-  src/compar.c
-  src/hash.c
-  src/numbers.c
-  src/sort.c
-  src/splitmix64.c
-  src/well1024.c
-  src/xorshift128.c
-  src/xorshift1024.c
-)
+# Find packages
 
-source_group("Randamu Source" FILES ${randamu_src})
+find_package(Threads REQUIRED)
+find_package(Math)
 
-################################################################
-# BUILD LIBRARY ################################################
+# Flags
 
-add_library(randamu STATIC ${randamu_src})
+set(RANDAMU_TO_LINK ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
 
-target_link_libraries(randamu ${MATH_LIBS})
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Fingers crossed that it compiles on Windows...
 
-################################################################
-# INSTALLATION #################################################
+# Subdirectories
 
-install(TARGETS randamu DESTINATION lib)
-install(DIRECTORY include/randamu DESTINATION include)
+include_directories(include include/SFMT src)
+add_subdirectory(src)
 
-################################################################
-# TESTS ########################################################
+if(RANDAMU_EXAMPLES)
+  add_subdirectory(examples)
+endif()
 
-if (BuildTests)
+if(RANDAMU_TEST)
   enable_testing()
-  add_subdirectory(tests)
-endif ()
+  add_subdirectory(test)
+endif()
 
-################################################################
-# SUMMARY ######################################################
+if(RANDAMU_BENCH)
+  add_subdirectory(bench)
+endif()
+
+# Summary
 
 message(STATUS "")
-message(STATUS "BUILD SUMMARY")
-message(STATUS "  CMAKE_GENERATOR      : ${CMAKE_GENERATOR}")
-message(STATUS "  Build tests          : ${BuildTests}")
-message(STATUS "  Compiler ID          : ${CMAKE_C_COMPILER_ID}")
-message(STATUS "  Build type           : ${CMAKE_BUILD_TYPE}")
-message(STATUS "  C_FLAGS              : ${CMAKE_C_FLAGS}")
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "RELEASE")
-  message(STATUS "  C_FLAGS_RELEASE      : ${CMAKE_C_FLAGS_RELEASE}")
-elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "DEBUG")
-  message(STATUS "  C_FLAGS_DEBUG        : ${CMAKE_C_FLAGS_DEBUG}")
-endif ()
+message(STATUS "RANDAMU BUILD SUMMARY")
+message(STATUS "  CMAKE_GENERATOR               : ${CMAKE_GENERATOR}")
+message(STATUS "  Build type                    : ${CMAKE_BUILD_TYPE}")
+message(STATUS "  Compiler ID                   : ${CMAKE_C_COMPILER_ID}")
+message(STATUS "  Library name                  : ${RANDAMU_LIB_NAME}")
+message(STATUS "  Library type                  : ${RANDAMU_LIB_TYPE}")
+message(STATUS "  Build tests                   : ${RANDAMU_TEST}")
+message(STATUS "  Build benchmarks              : ${RANDAMU_BENCH}")
+message(STATUS "  Build examples                : ${RANDAMU_EXAMPLES}")
+message(STATUS "  Position-independent library  : ${RANDAMU_PI}")
 message(STATUS "")

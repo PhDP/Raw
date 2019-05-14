@@ -1,5 +1,9 @@
-#ifndef RD_MATRIX_rd_
-#define RD_MATRIX_rd_
+/**
+ * @file matrix.h
+ * @brief Defines column-major matrixes of various types.
+ */
+#ifndef RANDAMU_MATRIX_H_
+#define RANDAMU_MATRIX_H_
 
 #include "randamu/common.h"
 
@@ -8,415 +12,415 @@ extern "C" {
 #endif
 
 /**
- * \brief Column-major matrix of single-precision floats.
+ * @brief Column-major matrix of single-precision floats.
  */
 typedef struct {
   float* data;
   size_t nrows;
   size_t ncols;
-} rd_smatrix;
+} rd_matrix_f32;
 
 /**
- * \brief Column-major matrix of double-precision floats.
+ * @brief Column-major matrix of double-precision floats.
  */
 typedef struct {
   double* data;
   size_t nrows;
   size_t ncols;
-} rd_dmatrix;
+} rd_matrix_f64;
 
 /**
- * \brief Column-major matrix of single-precision complex numbers.
+ * @brief Column-major matrix of single-precision complex numbers.
  */
 typedef struct {
   float complex* data;
   size_t nrows;
   size_t ncols;
-} rd_cmatrix;
+} rd_matrix_c32;
 
 /**
- * \brief Column-major matrix of double-precision complex numbers.
+ * @brief Column-major matrix of double-precision complex numbers.
  */
 typedef struct {
   double complex* data;
   size_t nrows;
   size_t ncols;
-} rd_zmatrix;
+} rd_matrix_c64;
 
 /**
- * \brief Column-major matrix of 32-bit signed integers.
+ * @brief Column-major matrix of 32-bit signed integers.
  */
 typedef struct {
   int32_t* data;
   size_t nrows;
   size_t ncols;
-} rd_i32matrix;
+} rd_matrix_i32;
 
 /**
- * \brief Column-major matrix of 64-bit signed integers.
+ * @brief Column-major matrix of 64-bit signed integers.
  */
 typedef struct {
   int64_t* data;
   size_t nrows;
   size_t ncols;
-} rd_i64matrix;
+} rd_matrix_i64;
 
 /**
- * \brief Column-major matrix of 32-bit unsigned integers.
+ * @brief Column-major matrix of 32-bit unsigned integers.
  */
 typedef struct {
   uint32_t* data;
   size_t nrows;
   size_t ncols;
-} rd_u32matrix;
+} rd_matrix_u32;
 
 /**
- * \brief Column-major matrix of 64-bit unsigned integers.
+ * @brief Column-major matrix of 64-bit unsigned integers.
  */
 typedef struct {
   uint64_t* data;
   size_t nrows;
   size_t ncols;
-} rd_u64matrix;
+} rd_matrix_u64;
 
 /**
- * \brief Generic macro to get the total number of elements in the matrix.
+ * @brief Generic macro to get the total number of elements in the matrix.
  */
 #define rd_matrix_size(m)          ((m)->nrows * (m)->ncols)
 
 /**
- * \brief Generic macro to return the number of bytes taken by the matrix's internal array of elements.
+ * @brief Generic macro to return the number of bytes taken by the matrix's internal array of elements.
  */
 #define rd_matrix_sizeof(m)        (rd_matrix_size(m) * sizeof((m)->data[0]))
 
 /**
- * \brief Generic macro to get the element at the given row 'r' and column 'c'.
+ * @brief Generic macro to get the element at the given row 'r' and column 'c'.
  */
 #define rd_matrix_get(m, r, c)     ((m)->data[(c) * (m)->nrows + (r)])
 
 /**
- * \brief Generic macro, returns true for matrices holding a single element.
+ * @brief Generic macro, returns true for matrices holding a single element.
  */
 #define rd_matrix_is_scalar(m)     ((m)->nrows == 1 && (m)->ncols == 1)
 
 /**
- * \brief Generic macro, returns true for matrices with a single column.
+ * @brief Generic macro, returns true for matrices with a single column.
  */
 #define rd_matrix_is_colvec(m)     ((m)->ncols == 1)
 
 /**
- * \brief Generic macro, returns true for matrices with a single row.
+ * @brief Generic macro, returns true for matrices with a single row.
  */
 #define rd_matrix_is_rowvec(m)     ((m)->nrows == 1)
 
 /**
- * \brief Generic macro, returns true for matrices with either a single row or a single column.
+ * @brief Generic macro, returns true for matrices with either a single row or a single column.
  */
 #define rd_matrix_is_vector(m)     ((m)->nrows == 1 || (m)->ncols == 1)
 
 /**
- * \brief Initializes a single-precision matrix.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a single-precision matrix.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_smatrix_init(rd_smatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_f32_init(rd_matrix_f32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a single-precision matrix filled with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a single-precision matrix filled with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_smatrix_init_zeroes(rd_smatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_f32_init_zeroes(rd_matrix_f32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a single-precision matrix and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a single-precision matrix and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_smatrix_init_fill(rd_smatrix* m, const size_t nrows, const size_t ncols, const float fill);
+void rd_matrix_f32_init_fill(rd_matrix_f32* m, const size_t nrows, const size_t ncols, const float fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_smatrix_copy(rd_smatrix* dest, const rd_smatrix* src);
+void rd_matrix_f32_copy(rd_matrix_f32* dest, const rd_matrix_f32* src);
 
 /**
- * \brief Frees the memory of a single-precision matrix.
- * \param m       The matrix to free
+ * @brief Frees the memory of a single-precision matrix.
+ * @param m       The matrix to free
  */
-rd_export void rd_smatrix_free(rd_smatrix* m);
+void rd_matrix_f32_free(rd_matrix_f32* m);
 
 /**
- * \brief Initializes a double-precision matrix.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a double-precision matrix.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_dmatrix_init(rd_dmatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_f64_init(rd_matrix_f64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a double-precision matrix filled with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a double-precision matrix filled with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_dmatrix_init_zeroes(rd_dmatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_f64_init_zeroes(rd_matrix_f64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a double-precision matrix and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a double-precision matrix and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_dmatrix_init_fill(rd_dmatrix* m, const size_t nrows, const size_t ncols, const double fill);
+void rd_matrix_f64_init_fill(rd_matrix_f64* m, const size_t nrows, const size_t ncols, const double fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_dmatrix_copy(rd_dmatrix* dest, const rd_dmatrix* src);
+void rd_matrix_f64_copy(rd_matrix_f64* dest, const rd_matrix_f64* src);
 
 /**
- * \brief Frees the memory of a double-precision matrix.
- * \param m       The matrix to free
+ * @brief Frees the memory of a double-precision matrix.
+ * @param m       The matrix to free
  */
-rd_export void rd_dmatrix_free(rd_dmatrix* m);
+void rd_matrix_f64_free(rd_matrix_f64* m);
 
 /**
- * \brief Initializes a single-precision complex matrix.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a single-precision complex matrix.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_cmatrix_init(rd_cmatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_c32_init(rd_matrix_c32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a single-precision matrix complex filled with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a single-precision matrix complex filled with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_cmatrix_init_zeroes(rd_cmatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_c32_init_zeroes(rd_matrix_c32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a single-precision complex matrix and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a single-precision complex matrix and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_cmatrix_init_fill(rd_cmatrix* m, const size_t nrows, const size_t ncols, const float complex fill);
+void rd_matrix_c32_init_fill(rd_matrix_c32* m, const size_t nrows, const size_t ncols, const float complex fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_cmatrix_copy(rd_cmatrix* dest, const rd_cmatrix* src);
+void rd_matrix_c32_copy(rd_matrix_c32* dest, const rd_matrix_c32* src);
 
 /**
- * \brief Frees the memory of a single-precision complex matrix.
- * \param m       The matrix to free
+ * @brief Frees the memory of a single-precision complex matrix.
+ * @param m       The matrix to free
  */
-rd_export void rd_cmatrix_free(rd_cmatrix* m);
+void rd_matrix_c32_free(rd_matrix_c32* m);
 
 /**
- * \brief Initializes a double-precision complex matrix.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a double-precision complex matrix.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_zmatrix_init(rd_zmatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_c64_init(rd_matrix_c64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a double-precision complex matrix filled with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a double-precision complex matrix filled with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_zmatrix_init_zeroes(rd_zmatrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_c64_init_zeroes(rd_matrix_c64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a double-precision complex matrix and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a double-precision complex matrix and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_zmatrix_init_fill(rd_zmatrix* m, const size_t nrows, const size_t ncols, const double complex fill);
+void rd_matrix_c64_init_fill(rd_matrix_c64* m, const size_t nrows, const size_t ncols, const double complex fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_zmatrix_copy(rd_zmatrix* dest, const rd_zmatrix* src);
+void rd_matrix_c64_copy(rd_matrix_c64* dest, const rd_matrix_c64* src);
 
 /**
- * \brief Frees the memory of a double-precision complex matrix.
- * \param m       The matrix to free
+ * @brief Frees the memory of a double-precision complex matrix.
+ * @param m       The matrix to free
  */
-rd_export void rd_zmatrix_free(rd_zmatrix* m);
+void rd_matrix_c64_free(rd_matrix_c64* m);
 
 /**
- * \brief Initializes a matrix of 32-bit signed integers.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a matrix of 32-bit signed integers.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_i32matrix_init(rd_i32matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_i32_init(rd_matrix_i32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializesa matrix of 32-bit signed integers with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializesa matrix of 32-bit signed integers with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_i32matrix_init_zeroes(rd_i32matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_i32_init_zeroes(rd_matrix_i32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a matrix of 32-bit signed integers and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a matrix of 32-bit signed integers and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_i32matrix_init_fill(rd_i32matrix* m, const size_t nrows, const size_t ncols, const int32_t fill);
+void rd_matrix_i32_init_fill(rd_matrix_i32* m, const size_t nrows, const size_t ncols, const int32_t fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_i32matrix_copy(rd_i32matrix* dest, const rd_i32matrix* src);
+void rd_matrix_i32_copy(rd_matrix_i32* dest, const rd_matrix_i32* src);
 
 /**
- * \brief Frees the memory of a matrix of 32-bit signed integers.
- * \param m       The matrix to free
+ * @brief Frees the memory of a matrix of 32-bit signed integers.
+ * @param m       The matrix to free
  */
-rd_export void rd_i32matrix_free(rd_i32matrix* m);
+void rd_matrix_i32_free(rd_matrix_i32* m);
 
 /**
- * \brief Initializes a matrix of 64-bit signed integers.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a matrix of 64-bit signed integers.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_i64matrix_init(rd_i64matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_i64_init(rd_matrix_i64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializesa matrix of 64-bit signed integers with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializesa matrix of 64-bit signed integers with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_i64matrix_init_zeroes(rd_i64matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_i64_init_zeroes(rd_matrix_i64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a matrix of 64-bit signed integers and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a matrix of 64-bit signed integers and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_i64matrix_init_fill(rd_i64matrix* m, const size_t nrows, const size_t ncols, const int64_t fill);
+void rd_matrix_i64_init_fill(rd_matrix_i64* m, const size_t nrows, const size_t ncols, const int64_t fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_i64matrix_copy(rd_i64matrix* dest, const rd_i64matrix* src);
+void rd_matrix_i64_copy(rd_matrix_i64* dest, const rd_matrix_i64* src);
 
 /**
- * \brief Frees the memory of a matrix of 64-bit signed integers.
- * \param m       The matrix to free
+ * @brief Frees the memory of a matrix of 64-bit signed integers.
+ * @param m       The matrix to free
  */
-rd_export void rd_i64matrix_free(rd_i64matrix* m);
+void rd_matrix_i64_free(rd_matrix_i64* m);
 
 /**
- * \brief Initializes a matrix of 32-bit unsigned integers.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a matrix of 32-bit unsigned integers.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_u32matrix_init(rd_u32matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_u32_init(rd_matrix_u32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializesa matrix of 32-bit unsigned integers with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializesa matrix of 32-bit unsigned integers with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_u32matrix_init_zeroes(rd_u32matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_u32_init_zeroes(rd_matrix_u32* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a matrix of 32-bit unsigned integers and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a matrix of 32-bit unsigned integers and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_u32matrix_init_fill(rd_u32matrix* m, const size_t nrows, const size_t ncols, const uint32_t fill);
+void rd_matrix_u32_init_fill(rd_matrix_u32* m, const size_t nrows, const size_t ncols, const uint32_t fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_u32matrix_copy(rd_u32matrix* dest, const rd_u32matrix* src);
+void rd_matrix_u32_copy(rd_matrix_u32* dest, const rd_matrix_u32* src);
 
 /**
- * \brief Frees the memory of a matrix of 32-bit unsigned integers.
- * \param m       The matrix to free
+ * @brief Frees the memory of a matrix of 32-bit unsigned integers.
+ * @param m       The matrix to free
  */
-rd_export void rd_u32matrix_free(rd_u32matrix* m);
+void rd_matrix_u32_free(rd_matrix_u32* m);
 
 /**
- * \brief Initializes a matrix of 64-bit unsigned integers.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializes a matrix of 64-bit unsigned integers.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_u64matrix_init(rd_u64matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_u64_init(rd_matrix_u64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializesa matrix of 64-bit unsigned integers with zeroes.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
+ * @brief Initializesa matrix of 64-bit unsigned integers with zeroes.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
  */
-rd_export void rd_u64matrix_init_zeroes(rd_u64matrix* m, const size_t nrows, const size_t ncols);
+void rd_matrix_u64_init_zeroes(rd_matrix_u64* m, const size_t nrows, const size_t ncols);
 
 /**
- * \brief Initializes a matrix of 64-bit unsigned integers and fill it.
- * \param m       Matrix to initialize
- * \param nrows   Number of rows
- * \param ncols   Number of columns
- * \param fill    Value to fill the matrix with
+ * @brief Initializes a matrix of 64-bit unsigned integers and fill it.
+ * @param m       Matrix to initialize
+ * @param nrows   Number of rows
+ * @param ncols   Number of columns
+ * @param fill    Value to fill the matrix with
  */
-rd_export void rd_u64matrix_init_fill(rd_u64matrix* m, const size_t nrows, const size_t ncols, const uint64_t fill);
+void rd_matrix_u64_init_fill(rd_matrix_u64* m, const size_t nrows, const size_t ncols, const uint64_t fill);
 
 /**
- * \brief Performs a deep copy of 'src' to 'dest'.
- * \param dest   The destination (where to copy)
- * \param src    The matrix to copy
+ * @brief Performs a deep copy of 'src' to 'dest'.
+ * @param dest   The destination (where to copy)
+ * @param src    The matrix to copy
  */
-rd_export void rd_u64matrix_copy(rd_u64matrix* dest, const rd_u64matrix* src);
+void rd_matrix_u64_copy(rd_matrix_u64* dest, const rd_matrix_u64* src);
 
 /**
- * \brief Frees the memory of a matrix of 64-bit unsigned integers.
- * \param m       The matrix to free
+ * @brief Frees the memory of a matrix of 64-bit unsigned integers.
+ * @param m       The matrix to free
  */
-rd_export void rd_u64matrix_free(rd_u64matrix* m);
+void rd_matrix_u64_free(rd_matrix_u64* m);
 
 #ifdef __cplusplus
 }
