@@ -11,14 +11,14 @@ endif()
 
 # Options
 
-option(RANDAMU_STATIC       "Builds a static library instead of a shared one." OFF)
+option(RANDAMU_STATIC       "Builds a static library instead of a shared one." ON)
 option(RANDAMU_TEST         "Adds target for tests." OFF)
 option(RANDAMU_BENCH        "Adds target for benchmarks." OFF)
 option(RANDAMU_EXAMPLES     "Builds examples." OFF)
 option(RANDAMU_CUDA         "Adds support for CUDA." OFF)
 option(RANDAMU_NATIVE       "Adds -march=native flag." OFF)
 option(RANDAMU_SANITIZE     "Adds -fsanitize=address -fsanitize=undefined flags." OFF)
-option(RANDAMU_PI           "Builds a position-independent library." OFF)
+option(RANDAMU_PI           "Builds a position-independent library." ON)
 
 # Define a few stuff
 
