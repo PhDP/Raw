@@ -17,7 +17,7 @@ matrix:
 # Command to run tests
 script:
   - mkdir build && cd $_
-  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD}
+  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD} -DRANDAMU_TEST=ON
   - make
   - make test
 
