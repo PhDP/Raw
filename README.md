@@ -1,8 +1,6 @@
-<p align='center'>
-  <img src='http://phdp.github.io/images/randamu.png' alt='Randamu logo'/>
-</p>
+# Raw
 
-[![Build status](https://travis-ci.org/PhDP/Randamu.svg?branch=master)](https://travis-ci.org/PhDP/Randamu)
+[![Build status](https://travis-ci.org/PhDP/Raw.svg?branch=master)](https://travis-ci.org/PhDP/Raw)
 
 Random C code about random stuff
 

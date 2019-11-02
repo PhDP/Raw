@@ -1,6 +1,6 @@
-#include "randamu/str.h"
+#include "raw/str.h"
 
-size_t rd_strcat(char** dest, size_t* dest_length, size_t* dest_capacity, const char* source) {
+size_t r_strcat(char** dest, size_t* dest_length, size_t* dest_capacity, const char* source) {
   const size_t source_length = strlen(source);
   if (source_length == 0) {
     return *dest_length;
@@ -18,7 +18,7 @@ size_t rd_strcat(char** dest, size_t* dest_length, size_t* dest_capacity, const 
   return *dest_length;
 }
 
-int rd_surrounded(const char* txt, const char left, const char right) {
+int r_surrounded(const char* txt, const char left, const char right) {
   if (txt[0] != left) {
     return 0;
   }
@@ -29,7 +29,7 @@ int rd_surrounded(const char* txt, const char left, const char right) {
   return txt[idx - 1] == right;
 }
 
-char* rd_read_file(const char* filename) {
+char* r_read_file(const char* filename) {
   FILE* f = fopen(filename, "rb");
   if (f) {
     fseek(f, 0, SEEK_END);

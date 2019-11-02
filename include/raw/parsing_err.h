@@ -2,10 +2,10 @@
  * @file parsing_err.h
  * @brief
  */
-#ifndef RANDAMU_PARSING_ERR_H_
-#define RANDAMU_PARSING_ERR_H_
+#ifndef RAW_PARSING_ERR_H_
+#define RAW_PARSING_ERR_H_
 
-#include "randamu/common.h"
+#include "raw/common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,17 +17,17 @@ extern "C" {
 typedef struct {
   char* msg;
   size_t idx;
-} rd_parsing_err;
+} r_parsing_err;
 
 /**
  * @brief Initializes a parsing error.
  */
-void rd_parsing_err_init(rd_parsing_err* err);
+void r_parsing_err_init(r_parsing_err* err);
 
 /**
  * @brief Frees the memory of a parsing error.
  */
-void rd_parsing_err_free(rd_parsing_err* err);
+void r_parsing_err_free(r_parsing_err* err);
 
 #ifdef __cplusplus
 }

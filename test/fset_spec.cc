@@ -1,8 +1,8 @@
 #include "catch.hpp"
-#include "randamu/fset.h"
-#include "randamu/cmp.h"
+#include "raw/fset.h"
+#include "raw/cmp.h"
 
-RANDAMU_FLATSET(fset_u32, uint32_t, size_t, rd_cmp_u32_asc)
+RAW_FLATSET(fset_u32, uint32_t, size_t, r_cmp_u32_asc)
 
 TEST_CASE("Add, remove, find from a sorted array of uint32_t (ascending order)", "fset") {
   size_t capacity = 0;
@@ -105,7 +105,7 @@ TEST_CASE("Add, remove, find from a sorted array of uint32_t (ascending order)",
   free(xs);
 }
 
-RANDAMU_FLATSMAP(fsmap_sz_sz, size_t, size_t, rd_cmp_sz_des)
+RAW_FLATSMAP(fsmap_sz_sz, size_t, size_t, r_cmp_sz_des)
 
 TEST_CASE("Insert size_t -> size_t flatmap (sorted in descending order)", "fsmap") {
   size_t capacity = 0;
@@ -152,7 +152,7 @@ typedef struct {
   int32_t wordcount;
 } shakespeare_play;
 
-RANDAMU_FLATMAP(fmap_str_i32, shakespeare_play, char*, title, int32_t, wordcount, size_t, rd_cmp_str_asc)
+RAW_FLATMAP(fmap_str_i32, shakespeare_play, char*, title, int32_t, wordcount, size_t, r_cmp_str_asc)
 
 TEST_CASE("Insert str -> int32_t flatmap (sorted in ascending order)", "fsmap") {
   size_t capacity = 0;

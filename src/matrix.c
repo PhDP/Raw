@@ -1,6 +1,6 @@
-#include "randamu/matrix.h"
+#include "raw/matrix.h"
 
-#define RANDAMU_GENERATE_MATRIX_DEF(NAME, SCALAR) void NAME ## _init(NAME* m, const size_t nrows, const size_t \
+#define RAW_GENERATE_MATRIX_DEF(NAME, SCALAR) void NAME ## _init(NAME* m, const size_t nrows, const size_t \
       ncols) { \
     m->data = (SCALAR*)realloc((void*)m->data, nrows * ncols * sizeof(SCALAR)); \
     m->nrows = nrows; \
@@ -44,11 +44,11 @@
     } \
   }
 
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_f32, float)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_f64, double)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_c32, float complex)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_c64, double complex)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_i32, int32_t)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_i64, int64_t)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_u32, uint32_t)
-RANDAMU_GENERATE_MATRIX_DEF(rd_matrix_u64, uint64_t)
+RAW_GENERATE_MATRIX_DEF(r_matrix_f32, float)
+RAW_GENERATE_MATRIX_DEF(r_matrix_f64, double)
+RAW_GENERATE_MATRIX_DEF(r_matrix_c32, float complex)
+RAW_GENERATE_MATRIX_DEF(r_matrix_c64, double complex)
+RAW_GENERATE_MATRIX_DEF(r_matrix_i32, int32_t)
+RAW_GENERATE_MATRIX_DEF(r_matrix_i64, int64_t)
+RAW_GENERATE_MATRIX_DEF(r_matrix_u32, uint32_t)
+RAW_GENERATE_MATRIX_DEF(r_matrix_u64, uint64_t)

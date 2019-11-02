@@ -1,4 +1,4 @@
-#include "randamu/codons.h"
+#include "raw/codons.h"
 #include <time.h>
 
 int main(int argc, char** argv) {
@@ -7,19 +7,19 @@ int main(int argc, char** argv) {
 
   printf("Codon size: %lu\n", codon_size);
 
-  rd_grammar g;
-  rd_grammar_init_from_str(&g, str, NULL);
+  r_grammar g;
+  r_grammar_init_from_str(&g, str, NULL);
 
   sfmt_t rng;
   sfmt_init_gen_rand(&rng, time(0));
 
-  rd_codons c;
-  rd_codons_init(&c, codon_size);
+  r_codons c;
+  r_codons_init(&c, codon_size);
 
   size_t i = 0;
   for (; i < 10000; ++i) {
-    rd_codons_random_fill(&c, &rng);
-    char* s = rd_codons_generate(&c, &g, 1);
+    r_codons_random_fill(&c, &rng);
+    char* s = r_codons_generate(&c, &g, 1);
     if (s) {
       printf("%lu: %s\n", i, s);
       free(s);
@@ -28,8 +28,8 @@ int main(int argc, char** argv) {
     }
   }
 
-  rd_grammar_free(&g);
-  rd_codons_free(&c);
+  r_grammar_free(&g);
+  r_codons_free(&c);
 
   return EXIT_SUCCESS;
 }

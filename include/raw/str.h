@@ -2,10 +2,10 @@
  * @file str.h
  * @brief Miscellaneous functions for strings and I/O.
  */
-#ifndef RANDAMU_STR_H_
-#define RANDAMU_STR_H_
+#ifndef RAW_STR_H_
+#define RAW_STR_H_
 
-#include "randamu/common.h"
+#include "raw/common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,14 +19,14 @@ extern "C" {
  * @param source          String to add to our destination.
  * @return New length of the string.
  */
-size_t rd_strcat(char** dest, size_t* dest_length, size_t* dest_capacity, const char* source);
+size_t r_strcat(char** dest, size_t* dest_length, size_t* dest_capacity, const char* source);
 
 /**
  * @brief Reads an entire file and return its content.
  * @param filename  Name of the file to read.
  * @return A string with the entire content of the file, or NULL in case of failure.
  */
-char* rd_read_file(const char* filename);
+char* r_read_file(const char* filename);
 
 /**
  * @brief Checks whether a string begins and ends with specific characters.
@@ -35,7 +35,7 @@ char* rd_read_file(const char* filename);
  * @param right   Last character expected.
  * @return Whether the test is true
  */
-int rd_surrounded(const char* txt, const char left, const char right);
+int r_surrounded(const char* txt, const char left, const char right);
 
 #ifdef __cplusplus
 }

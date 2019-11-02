@@ -13,6 +13,6 @@ set(test_cc
 )
 
 source_group("Test Source" FILES ${test_cc})
-add_executable(randamu_test ${test_cc})
-target_link_libraries(randamu_test ${RANDAMU_TO_LINK} ${RANDAMU_LIB_NAME})
-add_test(NAME ctest COMMAND randamu_test)
+add_executable(raw_test ${test_cc})
+target_link_libraries(raw_test ${RAW_TO_LINK} ${RAW_LIB_NAME})
+add_test(NAME ctest COMMAND raw_test)

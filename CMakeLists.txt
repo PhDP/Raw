@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(randamu)
+project(raw)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -11,25 +11,25 @@ endif()
 
 # Options
 
-option(RANDAMU_STATIC       "Builds a static library instead of a shared one." ON)
-option(RANDAMU_TEST         "Adds target for tests." OFF)
-option(RANDAMU_BENCH        "Adds target for benchmarks." OFF)
-option(RANDAMU_EXAMPLES     "Builds examples." OFF)
-option(RANDAMU_CUDA         "Adds support for CUDA." OFF)
-option(RANDAMU_NATIVE       "Adds -march=native flag." OFF)
-option(RANDAMU_SANITIZE     "Adds -fsanitize=address -fsanitize=undefined flags." OFF)
-option(RANDAMU_PI           "Builds a position-independent library." ON)
+option(RAW_STATIC       "Builds a static library instead of a shared one." ON)
+option(RAW_TEST         "Adds target for tests." OFF)
+option(RAW_BENCH        "Adds target for benchmarks." OFF)
+option(RAW_EXAMPLES     "Builds examples." OFF)
+option(RAW_CUDA         "Adds support for CUDA." OFF)
+option(RAW_NATIVE       "Adds -march=native flag." OFF)
+option(RAW_SANITIZE     "Adds -fsanitize=address -fsanitize=undefined flags." OFF)
+option(RAW_PI           "Builds a position-independent library." ON)
 
 # Define a few stuff
 
-if(RANDAMU_STATIC)
-  set(RANDAMU_LIB_TYPE STATIC)
-  set(RANDAMU_LIB_NAME "randamu_static")
-  add_definitions(-DRANDAMU_STATIC_LIBRARY)
+if(RAW_STATIC)
+  set(RAW_LIB_TYPE STATIC)
+  set(RAW_LIB_NAME "raw_static")
+  add_definitions(-DRAW_STATIC_LIBRARY)
 else()
-  set(RANDAMU_LIB_TYPE SHARED)
-  set(RANDAMU_LIB_NAME "randamu")
-  add_definitions(-DRANDAMU_SHARED_LIBRARY)
+  set(RAW_LIB_TYPE SHARED)
+  set(RAW_LIB_NAME "raw")
+  add_definitions(-DRAW_SHARED_LIBRARY)
 endif()
 
 add_definitions(-DSFMT_MEXP=19937)
@@ -41,7 +41,7 @@ find_package(Math)
 
 # Flags
 
-set(RANDAMU_TO_LINK ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
+set(RAW_TO_LINK ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Fingers crossed that it compiles on Windows...
 
@@ -50,30 +50,30 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Fingers crossed that it compiles on W
 include_directories(include include/SFMT src)
 add_subdirectory(src)
 
-if(RANDAMU_EXAMPLES)
+if(RAW_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-if(RANDAMU_TEST)
+if(RAW_TEST)
   enable_testing()
   add_subdirectory(test)
 endif()
 
-if(RANDAMU_BENCH)
+if(RAW_BENCH)
   add_subdirectory(bench)
 endif()
 
 # Summary
 
 message(STATUS "")
-message(STATUS "RANDAMU BUILD SUMMARY")
+message(STATUS "RAW BUILD SUMMARY")
 message(STATUS "  CMAKE_GENERATOR               : ${CMAKE_GENERATOR}")
 message(STATUS "  Build type                    : ${CMAKE_BUILD_TYPE}")
 message(STATUS "  Compiler ID                   : ${CMAKE_C_COMPILER_ID}")
-message(STATUS "  Library name                  : ${RANDAMU_LIB_NAME}")
-message(STATUS "  Library type                  : ${RANDAMU_LIB_TYPE}")
-message(STATUS "  Build tests                   : ${RANDAMU_TEST}")
-message(STATUS "  Build benchmarks              : ${RANDAMU_BENCH}")
-message(STATUS "  Build examples                : ${RANDAMU_EXAMPLES}")
-message(STATUS "  Position-independent library  : ${RANDAMU_PI}")
+message(STATUS "  Library name                  : ${RAW_LIB_NAME}")
+message(STATUS "  Library type                  : ${RAW_LIB_TYPE}")
+message(STATUS "  Build tests                   : ${RAW_TEST}")
+message(STATUS "  Build benchmarks              : ${RAW_BENCH}")
+message(STATUS "  Build examples                : ${RAW_EXAMPLES}")
+message(STATUS "  Position-independent library  : ${RAW_PI}")
 message(STATUS "")

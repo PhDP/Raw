@@ -20,18 +20,18 @@
  * way, the function to insert and remove can modify the number of members, capacity, and even
  * reallocate memory to the array when necessary.
  *
- * RANDAMU_FLATSET generates PREFIX_add, PREFIX_del, and PREFIX_find to add, delete, and
+ * RAW_FLATSET generates PREFIX_add, PREFIX_del, and PREFIX_find to add, delete, and
  * find unique keys into a sorted array.
  *
- * RANDAMU_FLATSMAP generates PREFIX_add, PREFIX_del, and PREFIX_find to add, delete, and
+ * RAW_FLATSMAP generates PREFIX_add, PREFIX_del, and PREFIX_find to add, delete, and
  * find unique keys, plus a function PREFIX_value to get the value associated with a given key.
  *
- * RANDAMU_FLATMAP
+ * RAW_FLATMAP
  */
-#ifndef RANDAMU_FSET_H_
-#define RANDAMU_FSET_H_
+#ifndef RAW_FSET_H_
+#define RAW_FSET_H_
 
-#include "randamu/common.h"
+#include "raw/common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,7 +48,7 @@ extern "C" {
  * @param SIZE            Type for the sizes (capacity and nmemb), typically size_t.
  * @param CMP             Comparison function (see cmp.h).
  */
-#define RANDAMU_FLATSET(NAME_PREFIX, KEY_TYPE, SIZE, CMP) \
+#define RAW_FLATSET(NAME_PREFIX, KEY_TYPE, SIZE, CMP) \
   static int NAME_PREFIX ## _add(KEY_TYPE** keys, const KEY_TYPE* k, SIZE* nmemb, SIZE* capacity) { \
     if (*nmemb == 0) { \
       if (*capacity == 0) { \
@@ -125,7 +125,7 @@ extern "C" {
  *
  * Capacity and nmemb are in pairs.
  */
-#define RANDAMU_FLATSMAP(NAME_PREFIX, KEY_TYPE, SIZE, CMP) \
+#define RAW_FLATSMAP(NAME_PREFIX, KEY_TYPE, SIZE, CMP) \
   static int NAME_PREFIX ## _add (KEY_TYPE** pairs, const KEY_TYPE* k, const KEY_TYPE* v, SIZE* nmemb, SIZE* capacity) { \
     if (*nmemb == 0) { \
       if (*capacity == 0) { \
@@ -212,7 +212,7 @@ extern "C" {
  *
  * Capacity and nmemb are in pairs.
  */
-#define RANDAMU_FLATMAP(NAME_PREFIX, PAIR_TYPE, KEY_TYPE, KEY_NAME, VALUE_TYPE, VALUE_NAME, SIZE, CMP) \
+#define RAW_FLATMAP(NAME_PREFIX, PAIR_TYPE, KEY_TYPE, KEY_NAME, VALUE_TYPE, VALUE_NAME, SIZE, CMP) \
   static int NAME_PREFIX ## _add(PAIR_TYPE** kvs, const PAIR_TYPE* kv, SIZE* nmemb, SIZE* capacity) { \
     if (*nmemb == 0) { \
       if (*capacity == 0) { \

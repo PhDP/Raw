@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "randamu/codons.h"
+#include "raw/codons.h"
 #include <time.h>
 
 TEST_CASE("Generate simple strings from grammar", "codons") {
@@ -9,11 +9,11 @@ TEST_CASE("Generate simple strings from grammar", "codons") {
   // <var>  ::= x | y
   // <num>  ::= 0 | 1 | 2 | 3 | 4
   const char* str = "<expr> ::= <expr> <op> <expr> | (<expr><op><expr>) | <fun1>(<expr>) | <var> | <num>\n<op>   ::= * | + | - | /\n<fun1> ::= sin | cos | exp\n<var>  ::= x | y\n<num>  ::= 0 | 1 | 2 | 3 | 4";
-  rd_grammar g;
-  rd_grammar_init_from_str(&g, str, NULL);
+  r_grammar g;
+  r_grammar_init_from_str(&g, str, NULL);
 
-  rd_codons c;
-  rd_codons_init(&c, 6);
+  r_codons c;
+  r_codons_init(&c, 6);
   c.codons[0] = 7;
   c.codons[1] = 1;
   c.codons[2] = 3;
@@ -21,12 +21,12 @@ TEST_CASE("Generate simple strings from grammar", "codons") {
   c.codons[4] = 7;
   c.codons[5] = 8;
 
-  char* s = rd_codons_generate(&c, &g, 0);
+  char* s = r_codons_generate(&c, &g, 0);
 
   REQUIRE(0 == strcmp(s, "cos(y)"));
 
-  rd_grammar_free(&g);
-  rd_codons_free(&c);
+  r_grammar_free(&g);
+  r_codons_free(&c);
   free(s);
 }
 
@@ -37,11 +37,11 @@ TEST_CASE("Generate strings from grammar", "codons") {
   // <var>  ::= x | y
   // <num>  ::= 0 | 1 | 2 | 3 | 4
   const char* str = "<expr> ::= <expr> <op> <expr> | (<expr><op><expr>) | <fun1>(<expr>) | <var> | <num>\n<op>   ::= * | + | - | /\n<fun1> ::= sin | cos | exp\n<var>  ::= x | y\n<num>  ::= 0 | 1 | 2 | 3 | 4";
-  rd_grammar g;
-  rd_grammar_init_from_str(&g, str, NULL);
+  r_grammar g;
+  r_grammar_init_from_str(&g, str, NULL);
 
-  rd_codons c;
-  rd_codons_init(&c, 6);
+  r_codons c;
+  r_codons_init(&c, 6);
   c.codons[0] = 5;
   c.codons[1] = 3;
   c.codons[2] = 0;
@@ -49,12 +49,12 @@ TEST_CASE("Generate strings from grammar", "codons") {
   c.codons[4] = 3;
   c.codons[5] = 0;
 
-  char* s = rd_codons_generate(&c, &g, 0);
+  char* s = r_codons_generate(&c, &g, 0);
 
   REQUIRE(0 == strcmp(s, "x * x"));
 
-  rd_grammar_free(&g);
-  rd_codons_free(&c);
+  r_grammar_free(&g);
+  r_codons_free(&c);
   free(s);
 }
 
@@ -70,11 +70,11 @@ TEST_CASE("Generate complex strings from grammar", "codons") {
   // <fun2>    ::= fmod
   // <var>     ::= x | y
   const char* str = "<expr>    ::= <expr> <op> <expr>\n | <pre-op><expr> \n| <fun1>(<expr>) \n| <fun2>(<expr>, <expr>)\n| <var>\n<op>      ::= + | - | / | *\n<pre-op>  ::= -\n<fun1>    ::= sin | cos | tan\n<fun2>    ::= fmod\n<var>     ::= x | y";
-  rd_grammar g;
-  rd_grammar_init_from_str(&g, str, NULL);
+  r_grammar g;
+  r_grammar_init_from_str(&g, str, NULL);
 
-  rd_codons c;
-  rd_codons_init(&c, 100);
+  r_codons c;
+  r_codons_init(&c, 100);
   c.codons[0] = 0;
   c.codons[1] = 5;
   c.codons[2] = 7;
@@ -176,12 +176,12 @@ TEST_CASE("Generate complex strings from grammar", "codons") {
   c.codons[98] = 7;
   c.codons[99] = 5;
 
-  char* s = rd_codons_generate(&c, &g, 0);
+  char* s = r_codons_generate(&c, &g, 0);
 
   REQUIRE(0 == strcmp(s, "sin(fmod(-fmod(-x, fmod(x, y / fmod(-x, sin(y) - y))), x)) / fmod(sin(x), sin(cos(-y * tan(-x)))) / x"));
 
-  rd_grammar_free(&g);
-  rd_codons_free(&c);
+  r_grammar_free(&g);
+  r_codons_free(&c);
   free(s);
 }
 
@@ -198,11 +198,11 @@ TEST_CASE("Generate simple strings from grammar [blog example]", "codons") {
   // <fun2> ::= fmod
   // <var>  ::= x | y
   const char* str = "<cfun> ::= double please_work(double x, double y) { return <expr>; }\n<expr> ::= <expr> <op> <expr>\n         | <pre><expr>\n         | <fun1>(<expr>)\n         | <fun2>(<expr>, <expr>)\n         | <var>\n<op>   ::= + | - | / | *\n<pre>  ::= -\n<fun1> ::= sin | cos | tan\n<fun2> ::= fmod\n<var>  ::= x | y";
-  rd_grammar g;
-  rd_grammar_init_from_str(&g, str, NULL);
+  r_grammar g;
+  r_grammar_init_from_str(&g, str, NULL);
 
-  rd_codons c;
-  rd_codons_init(&c, 9);
+  r_codons c;
+  r_codons_init(&c, 9);
   c.codons[0] = 10;
   c.codons[1] = 1;
   c.codons[2] = 2;
@@ -213,10 +213,10 @@ TEST_CASE("Generate simple strings from grammar [blog example]", "codons") {
   c.codons[7] = 4;
   c.codons[8] = 7;
 
-  char* s = rd_codons_generate(&c, &g, 0);
+  char* s = r_codons_generate(&c, &g, 0);
   REQUIRE(0 == strcmp(s, "double please_work(double x, double y) { return -sin(x) + y; }"));
 
-  rd_grammar_free(&g);
-  rd_codons_free(&c);
+  r_grammar_free(&g);
+  r_codons_free(&c);
   free(s);
 }

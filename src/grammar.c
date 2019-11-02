@@ -1,5 +1,5 @@
-#include "randamu/grammar.h"
-#include "randamu/str.h"
+#include "raw/grammar.h"
+#include "raw/str.h"
 
 static int64_t skip_ws(const char* txt, int64_t curr) {
   while(txt[curr] != '\0' && (txt[curr] == ' ' || txt[curr] == '\n' || txt[curr] == '\t')) {
@@ -8,7 +8,7 @@ static int64_t skip_ws(const char* txt, int64_t curr) {
   return txt[curr] == '\0'? -1 : curr;
 }
 
-static int64_t parse_alt(rd_alt* a, const char* txt, int64_t curr) {
+static int64_t parse_alt(r_alt* a, const char* txt, int64_t curr) {
   curr = skip_ws(txt, curr);
   a->elems = NULL;
   a->nmemb = 0;
@@ -64,7 +64,7 @@ static int64_t parse_alt(rd_alt* a, const char* txt, int64_t curr) {
   return curr;
 }
 
-static int64_t parse_production_rule(rd_production_rule* r, const char* txt, int64_t curr) {
+static int64_t parse_production_rule(r_production_rule* r, const char* txt, int64_t curr) {
   curr = skip_ws(txt, curr);
   if (txt[curr] != '<') {
     return -1;
@@ -89,7 +89,7 @@ static int64_t parse_production_rule(rd_production_rule* r, const char* txt, int
 
   size_t alt_capacity = 8;
   r->nmemb = 0;
-  r->alts = (rd_alt*)calloc(alt_capacity, sizeof(rd_alt));
+  r->alts = (r_alt*)calloc(alt_capacity, sizeof(r_alt));
 
   for (;;) {
     curr = parse_alt(&r->alts[r->nmemb], txt, curr);
@@ -97,7 +97,7 @@ static int64_t parse_production_rule(rd_production_rule* r, const char* txt, int
       r->nmemb++;
       if (r->nmemb + 1 <= alt_capacity) {
         alt_capacity = (3 * alt_capacity) >> 1;
-        r->alts = (rd_alt*)realloc(r->alts, alt_capacity * sizeof(rd_alt));
+        r->alts = (r_alt*)realloc(r->alts, alt_capacity * sizeof(r_alt));
       }
       curr = skip_ws(txt, curr);
       if (txt[curr] == '|') {
@@ -113,13 +113,13 @@ static int64_t parse_production_rule(rd_production_rule* r, const char* txt, int
   return curr;
 }
 
-void rd_grammar_init(rd_grammar* g) {
+void r_grammar_init(r_grammar* g) {
   g->nmemb = 0;
-  g->rules = (rd_production_rule*)calloc(8, sizeof(rd_production_rule));
+  g->rules = (r_production_rule*)calloc(8, sizeof(r_production_rule));
 }
 
-void rd_grammar_init_from_str(rd_grammar* g, const char* txt, rd_parsing_err* err) {
-  rd_grammar_init(g);
+void r_grammar_init_from_str(r_grammar* g, const char* txt, r_parsing_err* err) {
+  r_grammar_init(g);
   size_t rule_capacity = 8;
   int64_t idx = 0;
   while (idx != -1) {
@@ -131,22 +131,22 @@ void rd_grammar_init_from_str(rd_grammar* g, const char* txt, rd_parsing_err* er
     }
     if (g->nmemb + 1 <= rule_capacity) {
       rule_capacity = (3 * rule_capacity) >> 1;
-      g->rules = (rd_production_rule*)realloc((void*)g->rules, rule_capacity * sizeof(rd_production_rule));
+      g->rules = (r_production_rule*)realloc((void*)g->rules, rule_capacity * sizeof(r_production_rule));
     }
   }
 }
 
-void rd_grammar_init_from_file(rd_grammar* g, const char* filename, rd_parsing_err* err) {
-  const char* txt = rd_read_file(filename);
+void r_grammar_init_from_file(r_grammar* g, const char* filename, r_parsing_err* err) {
+  const char* txt = r_read_file(filename);
   if (txt) {
-    rd_grammar_init_from_str(g, txt, err);
+    r_grammar_init_from_str(g, txt, err);
   } else if (err) {
     err->msg = (char*)realloc((void*)err->msg, strlen(filename) + 50);
     sprintf(err->msg, "Failed to open file \"%s\"", filename);
   }
 }
 
-int64_t rd_grammar_rule_idx(const rd_grammar* g, const char* rule) {
+int64_t r_grammar_rule_idx(const r_grammar* g, const char* rule) {
   int64_t i = 0;
   for (; i < g->nmemb; ++i) {
     if (strcmp(g->rules[i].name, rule) == 0) {
@@ -156,7 +156,7 @@ int64_t rd_grammar_rule_idx(const rd_grammar* g, const char* rule) {
   return -1;
 }
 
-size_t rd_grammar_complexity(const rd_grammar* g) {
+size_t r_grammar_complexity(const r_grammar* g) {
   size_t complexity = g->nmemb * 2; // Name of the rule + ::= operator
   size_t i = 0, a;
   for (; i < g->nmemb; ++i) {
@@ -170,14 +170,14 @@ size_t rd_grammar_complexity(const rd_grammar* g) {
 
 // Print grammars:
 
-static void show_alt(const rd_alt* a, FILE* out) {
+static void show_alt(const r_alt* a, FILE* out) {
   size_t i = 0;
   for (; i < a->nmemb; ++i) {
     fprintf(out, "%s", a->elems[i]);
   }
 }
 
-void rd_grammar_show(const rd_grammar* g, FILE* out) {
+void r_grammar_show(const r_grammar* g, FILE* out) {
   size_t r = 0;
   for (; r < g->nmemb; ++r) {
     fprintf(out, "%s ::= ", g->rules[r].name);
@@ -193,14 +193,14 @@ void rd_grammar_show(const rd_grammar* g, FILE* out) {
   }
 }
 
-static void show_alt_details(const rd_alt* a, FILE* out) {
+static void show_alt_details(const r_alt* a, FILE* out) {
   size_t i = 0;
   for (; i < a->nmemb; ++i) {
     fprintf(out, "    Member #%lu: \"%s\"\n", i, a->elems[i]);
   }
 }
 
-void rd_grammar_show_details(const rd_grammar* g, FILE* out) {
+void r_grammar_show_details(const r_grammar* g, FILE* out) {
   size_t r = 0;
   for (; r < g->nmemb; ++r) {
     fprintf(out, "Rule %s:\n", g->rules[r].name);
@@ -216,7 +216,7 @@ void rd_grammar_show_details(const rd_grammar* g, FILE* out) {
 
 // Free memory:
 
-static void alt_free(rd_alt* a) {
+static void alt_free(r_alt* a) {
   if (a && a->elems) {
     size_t i = 0;
     for (; i < a->nmemb; ++i) {
@@ -225,7 +225,7 @@ static void alt_free(rd_alt* a) {
     free(a->elems);
   }
 }
-static void production_rule_free(rd_production_rule* r) {
+static void production_rule_free(r_production_rule* r) {
   if (r) {
     size_t i = 0;
     for (; i < r->nmemb; ++i) {
@@ -235,7 +235,7 @@ static void production_rule_free(rd_production_rule* r) {
   }
 }
 
-void rd_grammar_free(rd_grammar* g) {
+void r_grammar_free(r_grammar* g) {
   if (g && g->rules) {
     size_t i = 0;
     for (; i < g->nmemb; ++i) {

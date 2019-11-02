@@ -2,11 +2,11 @@
  * @file codons.h
  * @brief Codons are used in grammatical evolution to generate strings from grammars.
  */
-#ifndef RANDAMU_CODONS_H_
-#define RANDAMU_CODONS_H_
+#ifndef RAW_CODONS_H_
+#define RAW_CODONS_H_
 
-#include "randamu/common.h"
-#include "randamu/grammar.h"
+#include "raw/common.h"
+#include "raw/grammar.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,14 +18,14 @@ extern "C" {
 typedef struct {
   uint32_t* codons; // uint8_t is also commonly used.
   size_t nmemb;
-} rd_codons;
+} r_codons;
 
 /**
  * x@brief Initializes with a given number of members.
  * @param c     Struct to initialize.
  * @param nmemb Number of codons.
  */
-void rd_codons_init(rd_codons* c, const size_t nmemb);
+void r_codons_init(r_codons* c, const size_t nmemb);
 
 /**
  * @brief Initializes and fill with random numbers.
@@ -33,14 +33,14 @@ void rd_codons_init(rd_codons* c, const size_t nmemb);
  * @param nmemb
  * @param rng     Random number generator
  */
-void rd_codons_random_init(rd_codons* c, const size_t nmemb, sfmt_t* rng);
+void r_codons_random_init(r_codons* c, const size_t nmemb, sfmt_t* rng);
 
 /**
- * @brief Fills an initialized rd_codons with random numbers.
+ * @brief Fills an initialized r_codons with random numbers.
  */
-void rd_codons_random_fill(rd_codons* c, sfmt_t* rng);
+void r_codons_random_fill(r_codons* c, sfmt_t* rng);
 
-void rd_codons_cpy(rd_codons* dest, const rd_codons* src);
+void r_codons_cpy(r_codons* dest, const r_codons* src);
 
 /**
  * @brief Generate a string from a given codon and grammar.
@@ -50,11 +50,11 @@ void rd_codons_cpy(rd_codons* dest, const rd_codons* src);
  * @param max_wrap  Maximum number of times the algorithms is allowed to wrap around the codons (set to 0 for no wrapping).
  * @return          The generated string or null in case of error or if and all codons were used.
  */
-char* rd_codons_generate(const rd_codons* c, const rd_grammar* g, const size_t max_wrap);
+char* r_codons_generate(const r_codons* c, const r_grammar* g, const size_t max_wrap);
 
-void rd_codons_show(const rd_codons* c, FILE* out);
+void r_codons_show(const r_codons* c, FILE* out);
 
-void rd_codons_free(rd_codons* c);
+void r_codons_free(r_codons* c);
 
 #ifdef __cplusplus
 }
