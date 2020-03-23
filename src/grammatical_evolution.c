@@ -61,14 +61,13 @@ void r_ge_one_step(r_ge* g, double* fitnesses) {
   // Yes, this would be a lot simpler with a good multi{set, map}:
   const size_t codon_size = g->codon_size;
   const size_t elites = g->elites;
-  size_t* elites_id = (size_t*)malloc(g->elites * sizeof(size_t));
-  double* elites_fit = (double*)malloc(g->elites * sizeof(double));
+  size_t* elites_id = (size_t*)malloc(elites * sizeof(size_t));
+  double* elites_fit = (double*)malloc(elites * sizeof(double));
   size_t worst_elite_id = 0; // Refers to the ID in elites_id, it's an ID of IDs.
-
 
   // Find the elites:
   size_t i = 0;
-  for (; i < g->elites; ++i) {
+  for (; i < elites; ++i) {
     elites_id[i] = i;
     elites_fit[i] = fitnesses[i];
     if (fitnesses[elites_id[worst_elite_id]] > fitnesses[i]) {
@@ -80,26 +79,29 @@ void r_ge_one_step(r_ge* g, double* fitnesses) {
     if (fitnesses[i] > fitnesses[elites_id[worst_elite_id]]) {
       elites_id[worst_elite_id] = i;
       elites_fit[worst_elite_id] = fitnesses[i];
-      worst_elite_id = find_min(elites_fit, g->elites);
+      worst_elite_id = find_min(elites_fit, elites);
     }
   }
 
-  qsort((void*)elites_id, g->elites, sizeof(size_t), r_cmp_u_asc);
+  qsort((void*)elites_id, elites, sizeof(size_t), r_cmp_sz_asc);
   free(elites_fit); // Meaningless after the sort.
 
-  i = 0;
-  for (; i < g->pop_size; ++i) {
+  for (i = 0; i < g->pop_size; ++i) {
     // Only do something if it's not found in the set of elites:
-    if (bsearch((const void*)elites_id, (const void*)(&i), elites, sizeof(size_t), r_cmp_u_asc) == NULL) {
+    if (bsearch((const void*)(&i), (const void*)elites_id, elites,
+                sizeof(size_t), r_cmp_sz_asc) == NULL) {
 
       // Select two parents:
-      const size_t parent0 = elites_id[(size_t)(sfmt_genrand_real2(g->rng) * elites)];
-      const size_t parent1 = elites_id[(size_t)(sfmt_genrand_real2(g->rng) * elites)];
+      const size_t parent0 = elites_id[(size_t)(sfmt_genrand_real2(g->rng)
+                                       * elites)];
+      const size_t parent1 = elites_id[(size_t)(sfmt_genrand_real2(g->rng)
+                                       * elites)];
 
       // Crossover point
       // Only perform crossover if the parents are different (dah!):
       if (parent0 != parent1) {
-        const size_t crossover = (size_t)(sfmt_genrand_real2(g->rng) * codon_size);
+        const size_t crossover = (size_t)(sfmt_genrand_real2(g->rng)
+                                          * codon_size);
         size_t c = 0;
         for (; c < crossover; ++c) {
           g->codons[i].codons[c] = g->codons[parent0].codons[c];
@@ -119,12 +121,19 @@ void r_ge_one_step(r_ge* g, double* fitnesses) {
         }
       }
 
-      k = 0;
-      for (; k < mutations; ++k) {
-        g->codons[i].codons[((size_t)(sfmt_genrand_real2(g->rng) * codon_size))] = sfmt_genrand_uint32(g->rng);
+      for (k = 0; k < mutations; ++k) {
+        g->codons[i].codons[((size_t)(sfmt_genrand_real2(g->rng)
+                            * codon_size))] = sfmt_genrand_uint32(g->rng);
       }
 
     }
+  }
+
+  for (i = 0; i < g->pop_size; ++i) {
+    if (g->output[i]) {
+      free((void*)g->output[i]);
+    }
+    g->output[i] = r_codons_generate(&g->codons[i], g->grammar, g->max_wrap);
   }
 
   free(elites_id);
