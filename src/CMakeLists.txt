@@ -3,6 +3,7 @@ set(raw_src
   cmp.c
   parsing_err.c
   grammar.c
+  grammatical_evolution.c
   matrix.c
   str.c
 )

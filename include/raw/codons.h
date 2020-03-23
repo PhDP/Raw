@@ -29,8 +29,8 @@ void r_codons_init(r_codons* c, const size_t nmemb);
 
 /**
  * @brief Initializes and fill with random numbers.
- * @param c
- * @param nmemb
+ * @param c       The uninitialized codon.
+ * @param nmemb   Number of integers in the codon.
  * @param rng     Random number generator
  */
 void r_codons_random_init(r_codons* c, const size_t nmemb, sfmt_t* rng);

@@ -1,0 +1,5 @@
+<expr>      ::= dS/dt = <formula>\ndI/dt = <formula>\ndR/dt = <formula>
+<formula>   ::= <formula> <op> <formula> | <variable> <op> <formula> | <formula> <op> <variable> | <unary><variable> | <variable>
+<unary>     ::= -
+<operator>  ::= - | *
+<variable>  ::= a | b | I | S

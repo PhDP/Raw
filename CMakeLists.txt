@@ -12,9 +12,9 @@ endif()
 # Options
 
 option(RAW_STATIC       "Builds a static library instead of a shared one." ON)
-option(RAW_TEST         "Adds target for tests." OFF)
+option(RAW_TEST         "Adds target for tests." ON)
 option(RAW_BENCH        "Adds target for benchmarks." OFF)
-option(RAW_EXAMPLES     "Builds examples." OFF)
+option(RAW_EXAMPLES     "Builds examples." ON)
 option(RAW_CUDA         "Adds support for CUDA." OFF)
 option(RAW_NATIVE       "Adds -march=native flag." OFF)
 option(RAW_SANITIZE     "Adds -fsanitize=address -fsanitize=undefined flags." OFF)
