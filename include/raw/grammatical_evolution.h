@@ -51,8 +51,8 @@ void r_ge_init(r_ge* g, size_t seed, size_t pop_size, size_t elites,
                r_parsing_err* err);
 
 /**
- * @brief Return an initialized object for grammatical evolution and generate an
- * initial population of solutions.
+ * @brief Returns an initialized object for grammatical evolution and generate
+ * an initial population of solutions.
  *
  * @param seed        Seed for the random number generator.
  * @param pop_size    Size of the population of solutions. Must be > 9.
@@ -66,6 +66,7 @@ void r_ge_init(r_ge* g, size_t seed, size_t pop_size, size_t elites,
  * @param grammar     A string representing the grammar (see grammar folder for
  *                    examples).
  * @param err         Stores parsing errors. If NULL, errors will be ignored.
+ * @return            Initialized r_ge object.
  */
 r_ge* r_ge_init_ptr(size_t seed, size_t pop_size, size_t elites,
                     size_t codon_size, size_t max_wrap, const char* grammar,
