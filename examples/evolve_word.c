@@ -46,26 +46,23 @@ int main(int argc, char** argv) {
   // Important: this functions generates an initial set of solutions.
   r_ge_init(&ge, seed, pop_size, elites, codon_size, 0, grammar, NULL);
 
-  size_t i;
-
   // Stores the fitness for each solution:
   double* fitnesses = (double*)malloc(pop_size * sizeof(double));
 
-  // Computes the fitness for the initial solutions:
-  for (i = 0; i < pop_size; ++i) {
-    fitnesses[i] = fitness(ge.output[i], target);
-  }
-
-  size_t step = 0;
+  size_t step = 0, i;
   for (; step < max_steps; ++step) {
+    // Computes the fitness for each solution:
+    for (i = 0; i < pop_size; ++i) {
+      fitnesses[i] = fitness(ge.output[i], target);
+    }
+
     // Given the fitness for each solution, generates a new set of solutions:
     r_ge_one_step(&ge, fitnesses);
 
-    // Print results and compute the fitness for the next step:
+    // Print results:
     printf("Step %lu:\n", step);
     for (i = 0; i < pop_size; ++i) {
       printf("  %s\n", ge.output[i]);
-      fitnesses[i] = fitness(ge.output[i], target);
     }
     printf("\n\n");
   }
