@@ -126,14 +126,12 @@ void r_ge_one_step(r_ge* g, double* fitnesses) {
                             * codon_size))] = sfmt_genrand_uint32(g->rng);
       }
 
-    }
-  }
+      if (g->output[i]) {
+        free((void*)g->output[i]);
+      }
+      g->output[i] = r_codons_generate(&g->codons[i], g->grammar, g->max_wrap);
 
-  for (i = 0; i < g->pop_size; ++i) {
-    if (g->output[i]) {
-      free((void*)g->output[i]);
     }
-    g->output[i] = r_codons_generate(&g->codons[i], g->grammar, g->max_wrap);
   }
 
   free(elites_id);

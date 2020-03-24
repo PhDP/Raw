@@ -29,7 +29,8 @@ typedef struct {
 } r_ge;
 
 /**
- * @brief Initializes an object for grammatical evolution.
+ * @brief Initializes an object for grammatical evolution and generate an
+ * initial population of solutions.
  *
  * @param g           Uninitialized grammatical evolution object.
  * @param seed        Seed for the random number generator.
@@ -51,7 +52,10 @@ void r_ge_init(r_ge* g, size_t seed, size_t pop_size, size_t elites,
 
 /**
  * @brief Generates new solutions (g->codons) and new strings (g->output) given
- * an array of fitnesses (higher = better) for the previous generation's output,
+ * an array of fitnesses (higher = better) for the previous generation's output.
+ *
+ * It's important to note that g->output may have NULL strings if the codon
+ * fails to generate a string.
  *
  * @param g           Initialized grammatical evolution object.
  * @param fitnesses   Fitness for all outputs (must have the same number of
