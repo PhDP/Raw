@@ -25,10 +25,12 @@ option(RAW_PI           "Builds a position-independent library." ON)
 if(RAW_STATIC)
   set(RAW_LIB_TYPE STATIC)
   set(RAW_LIB_NAME "raw_static")
+  set(SFMT_LIB_NAME "sfmt_static")
   add_definitions(-DRAW_STATIC_LIBRARY)
 else()
   set(RAW_LIB_TYPE SHARED)
   set(RAW_LIB_NAME "raw")
+  set(SFMT_LIB_NAME "sfmt")
   add_definitions(-DRAW_SHARED_LIBRARY)
 endif()
 
@@ -41,7 +43,7 @@ find_package(Math)
 
 # Flags
 
-set(RAW_TO_LINK ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
+set(RAW_TO_LINK ${SFMT_LIB_NAME} ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Fingers crossed that it compiles on Windows...
 
