@@ -46,7 +46,15 @@ void r_ge_init(r_ge* g, size_t seed, size_t pop_size, size_t elites,
   }
 }
 
-static size_t find_min(double* xs, size_t nmemb) {
+r_ge* r_ge_init_ptr(size_t seed, size_t pop_size, size_t elites,
+                    size_t codon_size, size_t max_wrap, const char* grammar,
+                    r_parsing_err* err) {
+  r_ge* g = (r_ge*)malloc(sizeof(r_ge));
+  r_ge_init(g, seed, pop_size, elites, codon_size, max_wrap, grammar, err);
+  return g;
+}
+
+static size_t find_min_idx(double* xs, size_t nmemb) {
   size_t min = 0;
   size_t i = 1;
   for (; i < nmemb; ++i) {
@@ -79,7 +87,7 @@ void r_ge_one_step(r_ge* g, double* fitnesses) {
     if (fitnesses[i] > fitnesses[elites_id[worst_elite_id]]) {
       elites_id[worst_elite_id] = i;
       elites_fit[worst_elite_id] = fitnesses[i];
-      worst_elite_id = find_min(elites_fit, elites);
+      worst_elite_id = find_min_idx(elites_fit, elites);
     }
   }
 

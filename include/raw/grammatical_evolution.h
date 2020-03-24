@@ -51,6 +51,27 @@ void r_ge_init(r_ge* g, size_t seed, size_t pop_size, size_t elites,
                r_parsing_err* err);
 
 /**
+ * @brief Return an initialized object for grammatical evolution and generate an
+ * initial population of solutions.
+ *
+ * @param seed        Seed for the random number generator.
+ * @param pop_size    Size of the population of solutions. Must be > 9.
+ * @param elites      Number of solutions to keep unchanged and used to generate
+ *                    the next batch of solutions. Must be at least 4 and
+ *                    smaller or equal to pop_size.
+ * @param codon_size  How many integers to generate strings. 100-1000 are good
+ *                    numbers. Must be at least 10.
+ * @param max_wrap    Whether you allow wrapping the integer sequence and if so,
+ *                    how many times.
+ * @param grammar     A string representing the grammar (see grammar folder for
+ *                    examples).
+ * @param err         Stores parsing errors. If NULL, errors will be ignored.
+ */
+r_ge* r_ge_init_ptr(size_t seed, size_t pop_size, size_t elites,
+                    size_t codon_size, size_t max_wrap, const char* grammar,
+                    r_parsing_err* err);
+
+/**
  * @brief Generates new solutions (g->codons) and new strings (g->output) given
  * an array of fitnesses (higher = better) for the previous generation's output.
  *
