@@ -19,3 +19,5 @@ doc
 *.opensdf
 *.sdf
 *.suo
+
+.DS_Store

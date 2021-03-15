@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.14)
 project(raw)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
@@ -40,10 +40,11 @@ add_definitions(-DSFMT_MEXP=19937)
 
 find_package(Threads REQUIRED)
 find_package(Math)
+find_package(BLAS) # https://cmake.org/cmake/help/v3.14/module/FindBLAS.html
 
 # Flags
 
-set(RAW_TO_LINK ${SFMT_LIB_NAME} ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
+set(RAW_TO_LINK ${BLAS_LIBRARIES} ${BLAS_LINKER_FLAGS} ${SFMT_LIB_NAME} ${CMAKE_THREAD_LIBS_INIT} ${MATH_LIBRARIES})
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Fingers crossed that it compiles on Windows...
 
@@ -72,6 +73,8 @@ message(STATUS "RAW BUILD SUMMARY")
 message(STATUS "  CMAKE_GENERATOR               : ${CMAKE_GENERATOR}")
 message(STATUS "  Build type                    : ${CMAKE_BUILD_TYPE}")
 message(STATUS "  Compiler ID                   : ${CMAKE_C_COMPILER_ID}")
+message(STATUS "  BLAS Linker Flags             : ${BLAS_LINKER_FLAGS}")
+message(STATUS "  BLAS Libraries                : ${BLAS_LIBRARIES}")
 message(STATUS "  Library name                  : ${RAW_LIB_NAME}")
 message(STATUS "  Library type                  : ${RAW_LIB_TYPE}")
 message(STATUS "  Build tests                   : ${RAW_TEST}")

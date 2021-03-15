@@ -16,6 +16,19 @@
     return *(const TNAME*)lhs != *(const TNAME*)rhs; \
   }
 
+#define RAW_GENERATE_CMP_ARR(NAME, TNAME) \
+  int r_cmp_ ## NAME ## _arr(const TNAME* lhs, const TNAME* rhs, const size_t n) { \
+    size_t i = 0; \
+    for (; i < n; ++i) { \
+      if (lhs[i] < rhs[i]) { \
+        return -1; \
+      } else if (rhs[i] < lhs[i]) { \
+        return 1; \
+      } \
+    } \
+    return 0; \
+  }
+
 int r_cmp_str_asc(const void* lhs, const void* rhs) {
   return strcmp(*(const char**)lhs, *(const char**)rhs);
 }
@@ -40,3 +53,6 @@ RAW_GENERATE_CMP_DEF(u8, uint8_t)
 RAW_GENERATE_CMP_DEF(u16, uint16_t)
 RAW_GENERATE_CMP_DEF(u32, uint32_t)
 RAW_GENERATE_CMP_DEF(u64, uint64_t)
+
+RAW_GENERATE_CMP_ARR(f32, float)
+RAW_GENERATE_CMP_ARR(f64, double)

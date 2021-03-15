@@ -1,6 +1,6 @@
 /**
  * @file common.h
- * @brief Common includes and macros for Akarui.
+ * @brief Common includes and macros for raw.
  */
 #ifndef RAW_COMMON_H_
 #define RAW_COMMON_H_

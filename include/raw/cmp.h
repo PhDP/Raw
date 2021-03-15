@@ -52,6 +52,9 @@ int r_cmp_u32_des(const void* lhs, const void* rhs);
 int r_cmp_u64_asc(const void* lhs, const void* rhs);
 int r_cmp_u64_des(const void* lhs, const void* rhs);
 
+int r_cmp_f32_arr(const float* lhs, const float* rhs, const size_t n);
+int r_cmp_f64_arr(const double* lhs, const double* rhs, const size_t n);
+
 #ifdef __cplusplus
 }
 #endif
